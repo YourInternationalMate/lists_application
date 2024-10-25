@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:lists_application/theme/theme.dart';
+import 'package:Lists/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:lists_application/pages/home_page.dart';
+import 'package:Lists/pages/home_page.dart';
 
 // Main entry point for the shopping list application
 void main() async {

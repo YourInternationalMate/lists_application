@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lists_application/util/my_button.dart';
+import 'package:Lists/util/my_button.dart';
 import 'package:flutter/services.dart';
 
 // Dialog box for creating or editing shopping list items with animations

@@ -1,4 +1,4 @@
-name: lists_application
+name: Lists
 description: "A modern list app with multiple lists, category filtering, and price tracking in EUR/USD. Features smooth animations, dark/light themes, and drag-and-drop reordering."
 publish_to: 'none'
 version: 0.1.0

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lists_application/util/dialog_box.dart';
+import 'package:Lists/util/dialog_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Interactive shopping list item with animations and slidable actions

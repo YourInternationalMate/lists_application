@@ -1,14 +1,14 @@
 // Required package imports for the shopping list application
-import 'package:lists_application/util/categorie_filter.dart';
-import 'package:lists_application/util/my_button.dart';
-import 'package:lists_application/util/my_drawer.dart';
-import 'package:lists_application/util/my_reorderable_list_view.dart';
+import 'package:Lists/util/categorie_filter.dart';
+import 'package:Lists/util/my_button.dart';
+import 'package:Lists/util/my_drawer.dart';
+import 'package:Lists/util/my_reorderable_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:lists_application/data/database.dart';
-import 'package:lists_application/util/data_tile.dart';
-import 'package:lists_application/util/shopping_tile.dart';
-import 'package:lists_application/util/dialog_box.dart';
+import 'package:Lists/data/database.dart';
+import 'package:Lists/util/data_tile.dart';
+import 'package:Lists/util/shopping_tile.dart';
+import 'package:Lists/util/dialog_box.dart';
 
 // Main stateful widget for the shopping list home screen
 class HomePage extends StatefulWidget {
