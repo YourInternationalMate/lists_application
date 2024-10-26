@@ -74,22 +74,23 @@ class ShoppingDataBase {
 
   // Convert price from one currency to another (currently supports € and $ conversions)
   double convertCurrency(String price, String fromCurrency, String toCurrency) {
-    double numericPrice = double.parse(price);
-    
-    // If no conversion needed, return the original price
-    if (fromCurrency == toCurrency) return numericPrice;
-    
-    // Sample conversion rate from USD to EUR
-    const double usdToEurRate = 0.85;
-    
-    if (fromCurrency == '\$' && toCurrency == '€') {
-      return numericPrice * usdToEurRate;
-    } else if (fromCurrency == '€' && toCurrency == '\$') {
-      return numericPrice / usdToEurRate;
-    }
-    
-    return numericPrice;  // Return original if no recognized conversion
+  // Entferne Währungssymbole und wandle in Double um
+  double numericPrice = double.parse(price.replaceAll(RegExp(r'[€$]'), ''));
+  
+  // Wenn keine Konvertierung nötig ist, gib den Original-Preis zurück
+  if (fromCurrency == toCurrency) return numericPrice;
+  
+  // Fester Umrechnungskurs EUR zu USD
+  const double eurToUsdRate = 1.18;  // Beispielkurs
+  
+  if (fromCurrency == '\$' && toCurrency == '€') {
+    return numericPrice / eurToUsdRate;
+  } else if (fromCurrency == '€' && toCurrency == '\$') {
+    return numericPrice * eurToUsdRate;
   }
+  
+  return numericPrice;  // Fallback wenn keine Umrechnung möglich
+}
 
   // Delete a shopping list from storage
   void deleteList(String listName) {
@@ -105,9 +106,13 @@ class ShoppingDataBase {
 
   // Add a new item to the shopping list and update storage
   void addItem(String listName, Map<String, String> item) {
-    currentShoppingList.add(item);
-    updateDataBase(listName);
+  // Füge die aktuelle Währung zum Preis hinzu, wenn sie noch nicht vorhanden ist
+  if (!item['price']!.contains('€') && !item['price']!.contains('\$')) {
+    item['price'] = item['price']! + currentCurrency;
   }
+  currentShoppingList.add(item);
+  updateDataBase(listName);
+}
 
   // Update an item at the given index and save changes to storage
   void updateItem(String listName, int index, Map<String, String> newItem) {

@@ -1,4 +1,4 @@
-package com.example.lists_application
+package com.NoBuildStudio.lists_application
 
 import io.flutter.embedding.android.FlutterActivity
 

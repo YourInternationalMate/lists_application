@@ -106,32 +106,49 @@ class _ShoppingTileState extends State<ShoppingTile>
 
   // Handle URL launching for product link
   Future<void> _launchUrl(BuildContext context) async {
-    try {
-      final Uri url = Uri.parse(widget.productLink);
-      if (await canLaunchUrl(url)) {
-        await _controller.reverse();
-        await launchUrl(url);
-        await _controller.forward();
-      } else {
-        _showError(context);
-      }
-    } catch (e) {
-      _showError(context);
-    }
+  String urlString = widget.productLink.trim();
+  
+  // Füge http:// hinzu, wenn kein Protokoll angegeben ist
+  if (!urlString.startsWith('http://') && !urlString.startsWith('https://')) {
+    urlString = 'https://$urlString';
   }
+  
+  try {
+    final Uri url = Uri.parse(urlString);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,  // Öffnet im externen Browser
+      );
+    } else {
+      _showError(context, 'Could not open link: Invalid URL');
+    }
+  } catch (e) {
+    _showError(context, 'Could not open link: ${e.toString()}');
+  }
+}
 
   // Display error when URL launch fails
-  void _showError(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Could not open link'),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+  void _showError(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.red,
+      duration: const Duration(seconds: 3),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-    );
-  }
+      action: SnackBarAction(
+        label: 'OK',
+        textColor: Colors.white,
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
+      ),
+    ),
+  );
+}
 
   // Format price with currency conversion
   String _formatPrice() {
