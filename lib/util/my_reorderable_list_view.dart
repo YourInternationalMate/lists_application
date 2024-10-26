@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Custom reorderable list view with simplified drag and drop behavior
+// Custom reorderable list view with scrolling behavior
 class CustomReorderableListView extends StatelessWidget {
   // Builder function to create list items
   final IndexedWidgetBuilder itemBuilder;
@@ -36,10 +36,11 @@ class CustomReorderableListView extends StatelessWidget {
         return child; // Return unmodified child widget
       },
       
-      // Custom scroll physics to disable default animations
-      physics: const NeverScrollableScrollPhysics().applyTo(
-        const AlwaysScrollableScrollPhysics(),
-      ),
+      // Use default scroll physics for natural scrolling
+      physics: const AlwaysScrollableScrollPhysics(),
+      
+      // Add padding at the bottom for better UX
+      padding: const EdgeInsets.only(bottom: 100),
     );
   }
 }
