@@ -2,6 +2,7 @@ import 'package:Lists/util/list_tile.dart';
 import 'package:Lists/util/share_list_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyDrawer extends StatefulWidget {
   final List<String> listNames;
@@ -33,7 +34,11 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
   late AnimationController _animationController;
   late ScrollController _scrollController;
   final user = FirebaseAuth.instance.currentUser;
-
+  bool _mounted = true;
+  
+  // Cache für geteilte Benutzer
+  Map<String, List<String>> _sharedUsersCache = {};
+  
   @override
   void initState() {
     super.initState();
@@ -43,13 +48,61 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     );
     _scrollController = ScrollController();
     _animationController.forward();
+    
+    // Lade initial die geteilten Benutzer für die aktuelle Liste
+    _loadSharedUsers(widget.currentListName);
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     _scrollController.dispose();
+    _mounted = false;
     super.dispose();
+  }
+
+  Future<void> _loadSharedUsers(String listName) async {
+    if (!_mounted) return;
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('lists')
+          .doc(user.uid)
+          .collection('userLists')
+          .doc(listName)
+          .get();
+
+      if (!docSnapshot.exists || !_mounted) return;
+
+      final data = docSnapshot.data();
+      final List<String> sharedWithIds = List<String>.from(data?['sharedWith'] ?? []);
+      
+      final List<String> sharedEmails = [];
+      for (String userId in sharedWithIds) {
+        if (!_mounted) return;
+        
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .get();
+            
+        if (userDoc.exists) {
+          final email = userDoc.data()?['email'] as String?;
+          if (email != null) sharedEmails.add(email);
+        }
+      }
+
+      if (_mounted) {
+        setState(() {
+          _sharedUsersCache[listName] = sharedEmails;
+        });
+      }
+    } catch (e) {
+      print('Error loading shared users: $e');
+    }
   }
 
   // Handle user logout
@@ -59,16 +112,34 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     navigator.pop(); // Close drawer
   }
 
-  // Show share dialog
-  void _showShareDialog() {
+  // Show enhanced share dialog
+  void _showShareDialog(BuildContext context) async {
+    // Stelle sicher, dass die geteilten Benutzer geladen sind
+    await _loadSharedUsers(widget.currentListName);
+    
+    if (!mounted) return;
+    
     Navigator.pop(context); // Close drawer
+    
     showDialog(
       context: context,
       builder: (context) => ShareListDialog(
         listName: widget.currentListName,
-        onShare: widget.onShareList,
+        onShare: _handleShare,
+        currentlySharedWith: _sharedUsersCache[widget.currentListName],
       ),
     );
+  }
+
+  // Handle share action
+  Future<void> _handleShare(String email) async {
+    try {
+      await widget.onShareList(email);
+      // Aktualisiere Cache nach erfolgreichem Teilen
+      await _loadSharedUsers(widget.currentListName);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
@@ -94,90 +165,87 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
   }
 
   Widget _buildDrawerHeader(BuildContext context) {
-  return AnimatedBuilder(
-    animation: _animationController,
-    builder: (context, child) {
-      final headerAnimation = CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOut,
-      );
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        final headerAnimation = CurvedAnimation(
+          parent: _animationController,
+          curve: Curves.easeOut,
+        );
 
-      return Transform.translate(
-        offset: Offset(-300 * (1 - headerAnimation.value), 0),
-        child: Opacity(
-          opacity: headerAnimation.value,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 12),
-                  // App Icon und Titel
-                  Center(
-                    child: Column(
+        return Transform.translate(
+          offset: Offset(-300 * (1 - headerAnimation.value), 0),
+          child: Opacity(
+            opacity: headerAnimation.value,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 12),
+                    Center(
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.shopping_cart,
+                            size: 48,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'Shopping Lists',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.shopping_cart,
-                          size: 48,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                        const SizedBox(height: 12),
                         Text(
-                          'Shopping Lists',
+                          'Signed in as:',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          user?.email ?? 'Unknown User',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onPrimary,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 24),
-                  // Email und Währungsauswahl
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Email Anzeige
-                      Text(
-                        'Signed in as:',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
-                          fontSize: 12,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        user?.email ?? 'Unknown User',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      );
-    },
-  );
-}
+        );
+      },
+    );
+  }
 
   Widget _buildBottomButtons(BuildContext context) {
     return Column(
@@ -193,7 +261,18 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
               color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-          onTap: _showShareDialog,
+          trailing: _sharedUsersCache[widget.currentListName]?.isNotEmpty == true
+              ? Badge(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  label: Text(
+                    _sharedUsersCache[widget.currentListName]!.length.toString(),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
+                )
+              : null,
+          onTap: () => _showShareDialog(context),
         ),
         ListTile(
           leading: Icon(

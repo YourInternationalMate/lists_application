@@ -7,6 +7,7 @@ class ShoppingDataBase {
   // Local cache of current data
   List<Map<String, String>> currentShoppingList = [];
   String currentCurrency = '€';
+  Map<String, String> _listNameCache = {};
   
   // Stream controller for real-time updates
   final _listUpdateController = StreamController<List<Map<String, String>>>.broadcast();
@@ -122,14 +123,31 @@ class ShoppingDataBase {
     }).toList();
   }
 
-  // Update list in Firebase
-  Future<void> updateDataBase(String listName) async {
+  // Aktualisierte updateDataBase Methode
+  Future<void> updateDataBase(String listId) async {
     try {
-      await _firebase.updateList(listName, currentShoppingList);
+      if (listId.contains('_')) {
+        final originalListInfo = await _firebase.getOriginalListInfo(listId);
+        if (originalListInfo != null) {
+          await _firebase.updateSharedList(
+            originalListInfo['ownerId']!,
+            originalListInfo['originalListName']!,
+            currentShoppingList
+          );
+          return;
+        }
+      }
+      
+      await _firebase.updateList(listId, currentShoppingList);
     } catch (e) {
       print('Error updating database: $e');
       throw Exception('Failed to update list');
     }
+  }
+
+  // Getter für den Display-Namen einer Liste
+  String getListDisplayName(String listId) {
+    return _listNameCache[listId] ?? listId;
   }
 
   // Delete a list
@@ -142,10 +160,36 @@ class ShoppingDataBase {
     }
   }
 
+  Future<String> _getActualListName(String listId) async {
+    if (_listNameCache.containsKey(listId)) {
+      return _listNameCache[listId]!;
+    }
+
+    try {
+      final displayName = await _firebase.getListDisplayName(listId);
+      _listNameCache[listId] = displayName;
+      return displayName;
+    } catch (e) {
+      print('Error getting list name: $e');
+      return listId;
+    }
+  }
+
   // Get all lists for current user
+  // Aktualisierte getAllListNames Methode
   Future<List<String>> getAllListNames() async {
     try {
-      return await _firebase.getAllListNames();
+      final listIds = await _firebase.getAllListNames();
+      
+      // Cache leeren
+      _listNameCache.clear();
+      
+      // Echte Namen laden
+      for (String id in listIds) {
+        _listNameCache[id] = await _getActualListName(id);
+      }
+      
+      return listIds;
     } catch (e) {
       print('Error getting list names: $e');
       return [];
@@ -162,14 +206,30 @@ class ShoppingDataBase {
     }
   }
 
-  // Add item to shopping list
-  Future<void> addItem(String listName, Map<String, String> item) async {
+  // Aktualisierte addItem Methode
+  Future<void> addItem(String listId, Map<String, String> item) async {
     try {
       if (!item['price']!.contains('€') && !item['price']!.contains('\$')) {
         item['price'] = '${item['price']}$currentCurrency';
       }
+      
+      // Prüfe ob es eine geteilte Liste ist
+      if (listId.contains('_')) {
+        final originalListInfo = await _firebase.getOriginalListInfo(listId);
+        if (originalListInfo != null) {
+          currentShoppingList.add(item);
+          await _firebase.updateSharedList(
+            originalListInfo['ownerId']!,
+            originalListInfo['originalListName']!,
+            currentShoppingList
+          );
+          return;
+        }
+      }
+      
+      // Normale Liste
       currentShoppingList.add(item);
-      await updateDataBase(listName);
+      await updateDataBase(listId);
     } catch (e) {
       print('Error adding item: $e');
       throw Exception('Failed to add item');

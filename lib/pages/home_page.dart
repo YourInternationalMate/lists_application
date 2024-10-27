@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('List shared with $email'),
+            content: Text('List shared with $email', style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),),
             backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
         );
