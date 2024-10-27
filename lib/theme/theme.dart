@@ -86,7 +86,7 @@ ThemeData darkMode = ThemeData(
     surface: Color.fromARGB(255, 50, 50, 50),        // Dark background surface color
     onPrimary: Color.fromARGB(255, 255, 255, 255),   // Text color on primary background
     primary: Color.fromARGB(255, 76, 76, 76),        // Primary color for main elements
-    secondary: Color.fromARGB(255, 125, 26, 255),    // Accent color for interactive elements
+    secondary: Color.fromRGBO(125, 26, 255, 1),    // Accent color for interactive elements
     onSecondary: Color.fromARGB(255, 255, 255, 255), // Text color on secondary background
     tertiary: Color.fromARGB(255, 90, 24, 154),      // Additional accent color
     onTertiary: Color.fromARGB(255, 255, 255, 255),  // Text color on tertiary background
