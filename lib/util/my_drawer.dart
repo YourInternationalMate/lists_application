@@ -1,15 +1,17 @@
 import 'package:Lists/util/list_tile.dart';
+import 'package:Lists/util/share_list_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-// Drawer widget with animated list items and currency selection
 class MyDrawer extends StatefulWidget {
-  // Properties for list management and currency settings
   final List<String> listNames;
   final VoidCallback onCreateNewList;
   final Function(String) onListChange;
   final Function(String) onDeleteList;
   final Function(String) onCurrencyChange;
+  final Function(String) onShareList;
   final String currentCurrency;
+  final String currentListName;
 
   const MyDrawer({
     super.key,
@@ -18,23 +20,23 @@ class MyDrawer extends StatefulWidget {
     required this.onListChange,
     required this.onDeleteList,
     required this.onCurrencyChange,
+    required this.onShareList,
     required this.currentCurrency,
+    required this.currentListName,
   });
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
 }
 
-// State class managing animations and scroll behavior
 class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin {
-  // Controllers for animations and scrolling
   late AnimationController _animationController;
   late ScrollController _scrollController;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
     super.initState();
-    // Initialize animation controller for drawer content
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -48,6 +50,25 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     _animationController.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+
+  // Handle user logout
+  Future<void> _handleLogout() async {
+    final navigator = Navigator.of(context);
+    await FirebaseAuth.instance.signOut();
+    navigator.pop(); // Close drawer
+  }
+
+  // Show share dialog
+  void _showShareDialog() {
+    Navigator.pop(context); // Close drawer
+    showDialog(
+      context: context,
+      builder: (context) => ShareListDialog(
+        listName: widget.currentListName,
+        onShare: widget.onShareList,
+      ),
+    );
   }
 
   @override
@@ -66,132 +87,231 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
               children: _buildListTiles(),
             ),
           ),
-          _buildCreateNewListButton(context),
+          _buildBottomButtons(context),
         ],
       ),
     );
   }
 
-  // Build animated drawer header
   Widget _buildDrawerHeader(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        final headerAnimation = CurvedAnimation(
-          parent: _animationController,
-          curve: Curves.easeOut,
-        );
+  return AnimatedBuilder(
+    animation: _animationController,
+    builder: (context, child) {
+      final headerAnimation = CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOut,
+      );
 
-        return Transform.translate(
-          offset: Offset(-300 * (1 - headerAnimation.value), 0),
-          child: Opacity(
-            opacity: headerAnimation.value,
-            child: DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
+      return Transform.translate(
+        offset: Offset(-300 * (1 - headerAnimation.value), 0),
+        child: Opacity(
+          opacity: headerAnimation.value,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 12),
+                  // App Icon und Titel
+                  Center(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.shopping_cart,
+                          size: 48,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Shopping Lists',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  // Email und Währungsauswahl
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Email Anzeige
+                      Text(
+                        'Signed in as:',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        user?.email ?? 'Unknown User',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              child: Center(
-                child: Text(
-                  'Your Lists',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
             ),
           ),
-        );
-      },
+        ),
+      );
+    },
+  );
+}
+
+  Widget _buildBottomButtons(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          leading: Icon(
+            Icons.share,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          title: Text(
+            'Share Current List',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          onTap: _showShareDialog,
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.add,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          title: Text(
+            'Create New List',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          onTap: () {
+            Navigator.pop(context);
+            widget.onCreateNewList();
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.logout,
+            color: Theme.of(context).colorScheme.error,
+          ),
+          title: Text(
+            'Logout',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+          onTap: _handleLogout,
+        ),
+        const SizedBox(height: 20),
+      ],
     );
   }
 
   // Build currency selector with animation
   Widget _buildCurrencySelector(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        final currencyAnimation = CurvedAnimation(
-          parent: _animationController,
-          curve: const Interval(0.2, 0.8, curve: Curves.easeOut),
-        );
+  return AnimatedBuilder(
+    animation: _animationController,
+    builder: (context, child) {
+      final currencyAnimation = CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.2, 0.8, curve: Curves.easeOut),
+      );
 
-        return Transform.translate(
-          offset: Offset(-300 * (1 - currencyAnimation.value), 0),
-          child: Opacity(
-            opacity: currencyAnimation.value,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Currency',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+      return Transform.translate(
+        offset: Offset(-300 * (1 - currencyAnimation.value), 0),
+        child: Opacity(
+          opacity: currencyAnimation.value,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Currency',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
-                  const SizedBox(width: 16),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        _buildCurrencyOption(context, '€'),
-                        Container(
-                          width: 1,
-                          height: 24,
-                          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.2),
-                        ),
-                        _buildCurrencyOption(context, '\$'),
-                      ],
-                    ),
+                ),
+                const SizedBox(width: 16),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                ],
-              ),
+                  child: Row(
+                    children: [
+                      _buildCurrencyOption(context, '€'),
+                      Container(
+                        width: 1,
+                        height: 24,
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                      ),
+                      _buildCurrencyOption(context, '\$'),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
 
-  // Build individual currency option with selection state
-  Widget _buildCurrencyOption(BuildContext context, String currency) {
-    final isSelected = widget.currentCurrency == currency;
+Widget _buildCurrencyOption(BuildContext context, String currency) {
+  final isSelected = widget.currentCurrency == currency;
 
-    return InkWell(
+  return Material(
+    color: Colors.transparent,
+    child: InkWell(
       onTap: () => widget.onCurrencyChange(currency),
       borderRadius: BorderRadius.circular(8),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? Theme.of(context).colorScheme.secondary : null,
+          color: isSelected 
+              ? Theme.of(context).colorScheme.secondary
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
           currency,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: isSelected
+                ? Theme.of(context).colorScheme.onSecondary
+                : Theme.of(context).colorScheme.onPrimary,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   // Build animated list tiles for each shopping list
   List<Widget> _buildListTiles() {
