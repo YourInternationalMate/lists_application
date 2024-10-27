@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:Lists/firebase_options.dart';
 import 'package:Lists/theme/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,6 +11,8 @@ import 'package:Lists/pages/home_page.dart';
 void main() async {
   // Initialize Flutter bindings for platform channels
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Set up Hive database for local storage
   await Hive.initFlutter();

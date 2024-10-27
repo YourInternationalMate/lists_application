@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "352172024344",
+    "project_id": "listsapplication",
+    "storage_bucket": "listsapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352172024344:android:5fb6d109b74a3d3064196d",
+        "android_client_info": {
+          "package_name": "com.NoBuildSt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkNpM9zjRdo08l7lr1epMDcUXh6F2OWgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
