@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String currentListName = 'Default List';
   List<String> listNames = [];
   bool _isLoading = true;
+  bool _mounted = true;
   
   // Controllers
   final _nameController = TextEditingController();
@@ -54,11 +55,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<void> _loadInitialData() async {
+    if (!mounted) return;
     try {
       setState(() => _isLoading = true);
       
-      // Initialize Firebase Auth listener
+      await db.initialize();
+      
+      // Listen auf Auth-Änderungen
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (!_mounted) return;  // Early return wenn nicht mehr mounted
         if (user == null && mounted) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const AuthScreen()),
@@ -66,26 +71,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
       });
 
-      // Load initial data
-      await initializeData();
+      // Lade initiale Daten
+      if (_mounted) {  // Prüfe mounted status
+        await initializeData();
+      }
       
-      // Set up real-time updates
-      db.listUpdates.listen(
-        (updatedList) {
-          if (mounted) {
-            setState(() {
-              db.currentShoppingList = updatedList;
-            });
-          }
-        },
-        onError: (error) {
-          print('Error in list updates: $error');
-        },
-      );
+      // Setup real-time updates
+      if (_mounted) {  // Prüfe mounted status
+        db.listUpdates.listen(
+          (updatedList) {
+            if (_mounted && mounted) {  // Doppelte Prüfung
+              setState(() {
+                db.currentShoppingList = updatedList;
+              });
+            }
+          },
+          onError: (error) {
+            print('Error in list updates: $error');
+          },
+        );
+      }
 
     } catch (e) {
       print('Error in initialization: $e');
-      if (mounted) {
+      if (_mounted && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error loading data: $e'),
@@ -94,7 +103,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         );
       }
     } finally {
-      if (mounted) {
+      if (_mounted && mounted) {
         setState(() => _isLoading = false);
       }
     }
@@ -102,6 +111,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    _mounted = false;
     db.dispose();
     _fadeController.dispose();
     _slideController.dispose();

@@ -43,7 +43,9 @@ class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final SharedPreferences _prefs;
-  
+
+  bool _isInitialized = false;
+
   // Collection references
   late CollectionReference _listsCollection;
   late CollectionReference _userSettingsCollection;
@@ -71,7 +73,7 @@ class FirebaseService {
   // Batch load list names with caching
   Future<Map<String, String>> batchLoadListNames(List<String> listIds) async {
     if (listIds.isEmpty) return {};
-    
+
     final currentTime = DateTime.now().millisecondsSinceEpoch;
     final lastUpdate = _prefs.getInt(_lastCacheUpdateKey) ?? 0;
     final Map<String, String> results = {};
@@ -80,7 +82,8 @@ class FirebaseService {
     // Check cache first
     for (String id in listIds) {
       final cachedName = _prefs.getString('$_namesCachePrefix$id');
-      if (cachedName != null && (currentTime - lastUpdate) < _cacheValidityDuration) {
+      if (cachedName != null &&
+          (currentTime - lastUpdate) < _cacheValidityDuration) {
         results[id] = cachedName;
       } else {
         idsToFetch.add(id);
@@ -91,7 +94,7 @@ class FirebaseService {
 
     try {
       final Map<String, Future<DocumentSnapshot>> futures = {};
-      
+
       for (String id in idsToFetch) {
         if (id.contains('_')) {
           futures[id] = _firestore
@@ -112,7 +115,7 @@ class FirebaseService {
 
       final responses = await Future.wait(futures.values);
       var index = 0;
-      
+
       for (var id in futures.keys) {
         final doc = responses[index++];
         if (doc.exists) {
@@ -197,7 +200,8 @@ class FirebaseService {
     }
   }
 
-  Future<void> updateList(String listName, List<Map<String, dynamic>> items) async {
+  Future<void> updateList(
+      String listName, List<Map<String, dynamic>> items) async {
     if (currentUserId == null) return;
 
     await _listsCollection
@@ -234,7 +238,8 @@ class FirebaseService {
         final doc = await listRef.get();
 
         if (doc.exists) {
-          final sharedWithIds = List<String>.from(doc.data()?['sharedWith'] ?? []);
+          final sharedWithIds =
+              List<String>.from(doc.data()?['sharedWith'] ?? []);
 
           for (final userId in sharedWithIds) {
             final sharedRef = _firestore
@@ -269,15 +274,17 @@ class FirebaseService {
   }
 
   Future<Map<String, dynamic>> loadUserSettings() async {
-    if (currentUserId == null) return {'currency': '€'};
-
-    final docSnapshot = await _userSettingsCollection.doc(currentUserId).get();
-
-    if (!docSnapshot.exists) {
+    if (!_isInitialized) return {};
+    try {
+      final docSnapshot = await _userSettingsCollection.doc(currentUserId).get();
+      if (docSnapshot.exists) {
+        return docSnapshot.data() as Map<String, dynamic>;
+      }
+      return {'currency': '€'};
+    } catch (e) {
+      print('Error loading user settings: $e');
       return {'currency': '€'};
     }
-
-    return docSnapshot.data() as Map<String, dynamic>;
   }
 
   // Sharing Operations
@@ -320,14 +327,16 @@ class FirebaseService {
       final sharedListId = '${currentUserId}_$listId';
 
       // Update original list
-      batch.update(_listsCollection
-          .doc(currentUserId)
-          .collection('userLists')
-          .doc(listId), {
-        'sharedWith': FieldValue.arrayUnion([targetUserId]),
-        'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
-        'lastModified': FieldValue.serverTimestamp(),
-      });
+      batch.update(
+          _listsCollection
+              .doc(currentUserId)
+              .collection('userLists')
+              .doc(listId),
+          {
+            'sharedWith': FieldValue.arrayUnion([targetUserId]),
+            'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
+            'lastModified': FieldValue.serverTimestamp(),
+          });
 
       // Create shared list
       batch.set(
@@ -347,7 +356,6 @@ class FirebaseService {
           });
 
       await batch.commit();
-
     } catch (e) {
       print('Error sharing list: $e');
       throw Exception('Failed to share list: ${e.toString()}');
@@ -358,16 +366,11 @@ class FirebaseService {
     if (currentUserId == null) return false;
 
     try {
-      final rateLimitDoc = await _firestore
-          .collection('rateLimit')
-          .doc(currentUserId)
-          .get();
+      final rateLimitDoc =
+          await _firestore.collection('rateLimit').doc(currentUserId).get();
 
       if (!rateLimitDoc.exists) {
-        await _firestore
-            .collection('rateLimit')
-            .doc(currentUserId)
-            .set({
+        await _firestore.collection('rateLimit').doc(currentUserId).set({
           'shareCount': 1,
           'timestamp': FieldValue.serverTimestamp(),
         });
@@ -379,10 +382,7 @@ class FirebaseService {
       final count = data['shareCount'] as int;
 
       if (DateTime.now().difference(timestamp) > const Duration(hours: 24)) {
-        await _firestore
-            .collection('rateLimit')
-            .doc(currentUserId)
-            .set({
+        await _firestore.collection('rateLimit').doc(currentUserId).set({
           'shareCount': 1,
           'timestamp': FieldValue.serverTimestamp(),
         });
@@ -391,10 +391,7 @@ class FirebaseService {
 
       if (count >= 50) return false;
 
-      await _firestore
-          .collection('rateLimit')
-          .doc(currentUserId)
-          .update({
+      await _firestore.collection('rateLimit').doc(currentUserId).update({
         'shareCount': FieldValue.increment(1),
       });
 
@@ -419,13 +416,13 @@ class FirebaseService {
             .doc(listName)
             .snapshots()
             .handleError((error) {
-          print('Error in shared list stream: $error');
-          return const [];
-        }).map((snapshot) {
-          if (!snapshot.exists) return [];
-          return List<Map<String, dynamic>>.from(
-              snapshot.data()?['items'] ?? []);
-        });
+              print('Error in shared list stream: $error');
+              return [];
+            })
+            .map((snapshot) {
+              if (!snapshot.exists) return [];
+              return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
+            });
       }
 
       return _firestore
@@ -435,12 +432,13 @@ class FirebaseService {
           .doc(listName)
           .snapshots()
           .handleError((error) {
-        print('Error in list stream: $error');
-        return const [];
-      }).map((snapshot) {
-        if (!snapshot.exists) return [];
-        return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
-      });
+            print('Error in list stream: $error');
+            return [];
+          })
+          .map((snapshot) {
+            if (!snapshot.exists) return [];
+            return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
+          });
     } catch (e) {
       print('Error setting up list stream: $e');
       return Stream.value([]);
@@ -493,45 +491,44 @@ class FirebaseService {
     return numericPrice;
   }
 
-  Future<void> updateSharedList(
-      String ownerId, String listName, List<Map<String, dynamic>> items) async {
+  Future<void> updateSharedList(String ownerId, String listName, List<Map<String, dynamic>> items) async {
     try {
-      final batch = _firestore.batch();
-      
-      // Original List Reference
-      final originalListRef = _firestore
+      // Einzelne Updates statt Batch
+      // Update original list
+      await _firestore
           .collection('lists')
           .doc(ownerId)
           .collection('userLists')
-          .doc(listName);
-
-      // Update original list
-      batch.update(originalListRef, {
+          .doc(listName)
+          .update({
         'items': items,
         'lastModified': FieldValue.serverTimestamp(),
       });
 
-      // Get all users this list is shared with
-      final originalListDoc = await originalListRef.get();
-      if (!originalListDoc.exists) throw Exception('Original list not found');
-      
-      final sharedWithUsers = List<String>.from(originalListDoc.data()?['sharedWith'] ?? []);
+      // Get shared users
+      final originalListDoc = await _firestore
+          .collection('lists')
+          .doc(ownerId)
+          .collection('userLists')
+          .doc(listName)
+          .get();
 
-      // Update all shared copies
-      for (final sharedUserId in sharedWithUsers) {
-        final sharedListRef = _firestore
-            .collection('lists')
-            .doc(sharedUserId)
-            .collection('sharedLists')
-            .doc('${ownerId}_$listName');
-
-        batch.update(sharedListRef, {
-          'items': items,
-          'lastModified': FieldValue.serverTimestamp(),
-        });
+      if (originalListDoc.exists) {
+        final sharedWithUsers = List<String>.from(originalListDoc.data()?['sharedWith'] ?? []);
+        
+        // Update shared copies sequentially
+        for (final sharedUserId in sharedWithUsers) {
+          await _firestore
+              .collection('lists')
+              .doc(sharedUserId)
+              .collection('sharedLists')
+              .doc('${ownerId}_$listName')
+              .update({
+            'items': items,
+            'lastModified': FieldValue.serverTimestamp(),
+          });
+        }
       }
-
-      await batch.commit();
     } catch (e) {
       print('Error updating shared list: $e');
       throw Exception('Failed to update shared list');
