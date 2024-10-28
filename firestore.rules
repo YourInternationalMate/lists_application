@@ -1,101 +1,118 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Hilfsfunktionen
+    // Helper functions 
     function isAuthenticated() {
       return request.auth != null;
     }
     
     function isOwner(userId) {
-      return request.auth.uid == userId;
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isListOwner(listData) {
+      return isAuthenticated() && request.auth.uid == listData.owner;
+    }
+    
+    function isSharedWithUser(listData) {
+      return isAuthenticated() && 
+        (listData.sharedWith is list) && 
+        (request.auth.uid in listData.sharedWith);
     }
 
-    // Users Collection
+    function hasSharedAccess(listData) {
+      return isAuthenticated() && 
+        (listData.sharedWith is list) && 
+        (request.auth.uid in listData.sharedWith);
+    }
+    
+    // Allow reading user documents for authentication
     match /users/{userId} {
+      allow create: if isAuthenticated() && request.auth.uid == userId;
       allow read: if isAuthenticated();
-      allow create: if isOwner(userId);
       allow update: if isOwner(userId);
-      allow delete: if isOwner(userId);
     }
 
-    // Listen Collection - Haupt-Listen
-    match /lists/{userId}/userLists/{listId} {
-      allow read: if isAuthenticated() &&
-        (isOwner(userId) || 
-        resource.data.sharedWith.hasAny([request.auth.uid]));
-        
-      allow create: if isOwner(userId);
-      
-      allow update: if isAuthenticated() &&
-        (isOwner(userId) || 
-        resource.data.sharedWith.hasAny([request.auth.uid]));
-        
-      allow delete: if isOwner(userId);
-    }
-
-    // Listen Collection - Geteilte Listen
-    match /lists/{userId}/sharedLists/{listId} {
-      allow read, write: if isOwner(userId);
-      
-      allow update: if request.auth.uid == resource.data.owner;
-      
-      allow read: if resource.data.sharedWith.hasAny([request.auth.uid]);
-    }
-
-    // Listen Items Subcollection
-    match /lists/{userId}/userLists/{listId}/items/{itemId} {
-      allow read: if isOwner(userId) || 
-        get(/databases/$(database)/documents/lists/$(userId)/userLists/$(listId)).data.sharedWith.hasAny([request.auth.uid]);
-      
-      allow write: if isOwner(userId) || 
-        get(/databases/$(database)/documents/lists/$(userId)/userLists/$(listId)).data.sharedWith.hasAny([request.auth.uid]);
-    }
-
-    // User Settings
+    // Allow access to user settings
     match /userSettings/{userId} {
       allow read, write: if isOwner(userId);
     }
 
-    // Rate Limiting für das Teilen von Listen
+    // Rate limiting collection
     match /rateLimit/{userId} {
-      allow read: if isOwner(userId);
-      
-      allow create: if isOwner(userId);
-      
-      allow update: if isOwner(userId) &&
-        (request.resource.data.shareCount is number &&
-         request.resource.data.timestamp is timestamp);
-         
-      allow delete: if isOwner(userId);
+      allow read, write: if isOwner(userId);
     }
 
-    // Collection für geteilte Benutzer
-    match /sharedUsers/{docId} {
+    // Main lists collection structure
+    match /lists/{userId} {
+      // Allow access to the lists collection
       allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
       
-      allow create: if isAuthenticated() &&
-        request.resource.data.keys().hasAll(['userId', 'email']);
-      
-      allow update: if isAuthenticated() &&
-        resource.data.userId == request.auth.uid;
+      // User's own lists subcollection
+      match /userLists/{listId} {
+        // Full access for list owner
+        allow read: if isOwner(userId) || hasSharedAccess(resource.data);
+        allow create: if isOwner(userId);
+        allow delete: if isOwner(userId);
         
-      allow delete: if resource.data.userId == request.auth.uid;
+        // Write access for shared users with restrictions
+        allow update: if isOwner(userId) || 
+          (hasSharedAccess(resource.data) && 
+           !request.resource.data.diff(resource.data).affectedKeys()
+             .hasAny(['owner', 'sharedWith', 'sharedWithEmails']));
+      }
+      
+      // Shared lists subcollection
+      match /sharedLists/{sharedListId} {
+        // Allow read and delete access for all authenticated users
+        allow read, delete: if isAuthenticated();
+        
+        // Allow initial creation by list owner
+        allow create: if isAuthenticated() &&
+          exists(/databases/$(database)/documents/lists/$(request.resource.data.ownerId)/userLists/$(request.resource.data.originalListId)) &&
+          get(/databases/$(database)/documents/lists/$(request.resource.data.ownerId)/userLists/$(request.resource.data.originalListId)).data.owner == request.auth.uid;
+        
+        // Allow updates by owner and shared users
+        allow update: if isAuthenticated() &&
+          (request.auth.uid == resource.data.ownerId || 
+           request.auth.uid == userId || 
+           (resource.data.sharedWith is list && request.auth.uid in resource.data.sharedWith)) &&
+          !request.resource.data.diff(resource.data).affectedKeys()
+            .hasAny(['owner', 'ownerId', 'originalListId', 'sharedWith']);
+      }
+      
+      // Share activity logs
+      match /shareActivity/{activityId} {
+        allow read, write: if isOwner(userId);
+      }
     }
 
-    // Collection für geteilte Listen-Metadaten
-    match /sharedLists/{docId} {
+    // Items collection (if separate from lists)
+    match /items/{itemId} {
       allow read: if isAuthenticated() &&
-        (resource.data.sharedWith.hasAny([request.auth.uid]) ||
-         resource.data.owner == request.auth.uid);
-         
-      allow create: if isAuthenticated() &&
-        request.resource.data.owner == request.auth.uid;
-        
-      allow update: if isAuthenticated() &&
-        (resource.data.sharedWith.hasAny([request.auth.uid]) ||
-         resource.data.owner == request.auth.uid);
-         
-      allow delete: if resource.data.owner == request.auth.uid;
+        (isListOwner(get(resource.data.listRef)) || 
+         hasSharedAccess(get(resource.data.listRef)));
+      allow write: if isAuthenticated() && 
+        isListOwner(get(resource.data.listRef));
+    }
+
+    // User profiles collection
+    match /userProfiles/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+
+    // Shared list invites collection
+    match /listInvites/{inviteId} {
+      allow read: if isAuthenticated() && 
+        (request.auth.uid == resource.data.fromUserId || 
+         request.auth.uid == resource.data.toUserId);
+      allow create: if isAuthenticated() && 
+        request.auth.uid == request.resource.data.fromUserId;
+      allow update, delete: if isAuthenticated() && 
+        (request.auth.uid == resource.data.fromUserId || 
+         request.auth.uid == resource.data.toUserId);
     }
   }
 }

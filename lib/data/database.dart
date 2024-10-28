@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:Lists/data/firebase_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ShoppingDataBase {
   final FirebaseService _firebase = FirebaseService();
@@ -60,15 +61,17 @@ class ShoppingDataBase {
 
   // Create a new shopping list
   Future<void> createNewList(String listName) async {
-    try {
-      await _firebase.createNewList(listName);
-      currentShoppingList = [];
-      _subscribeToListUpdates(listName);
-    } catch (e) {
-      print('Error creating list: $e');
-      throw Exception('Failed to create new list');
+  try {
+    await _firebase.createNewList(listName);
+    currentShoppingList = [];
+    _subscribeToListUpdates(listName);
+  } catch (e) {
+    if (e is FirebaseException && e.code == 'permission-denied') {
+      throw Exception('Keine Berechtigung zum Erstellen der Liste');
     }
+    rethrow;
   }
+}
 
   // Load list data and subscribe to updates
   Future<void> loadData(String listName) async {
@@ -206,35 +209,37 @@ class ShoppingDataBase {
     }
   }
 
-  // Aktualisierte addItem Methode
   Future<void> addItem(String listId, Map<String, String> item) async {
-    try {
-      if (!item['price']!.contains('€') && !item['price']!.contains('\$')) {
-        item['price'] = '${item['price']}$currentCurrency';
-      }
+  try {
+    if (!item['price']!.contains('€') && !item['price']!.contains('\$')) {
+      item['price'] = '${item['price']}$currentCurrency';
+    }
+    
+    // Prüfe ob es eine geteilte Liste ist
+    if (listId.contains('_')) {
+      final parts = listId.split('_');
+      final originalOwnerId = parts[0];
+      final originalListName = parts[1];
+
+      // Füge das Item zur Liste hinzu
+      currentShoppingList.add(item);
       
-      // Prüfe ob es eine geteilte Liste ist
-      if (listId.contains('_')) {
-        final originalListInfo = await _firebase.getOriginalListInfo(listId);
-        if (originalListInfo != null) {
-          currentShoppingList.add(item);
-          await _firebase.updateSharedList(
-            originalListInfo['ownerId']!,
-            originalListInfo['originalListName']!,
-            currentShoppingList
-          );
-          return;
-        }
-      }
-      
+      // Aktualisiere beide Listen
+      await _firebase.updateSharedList(
+        originalOwnerId,
+        originalListName,
+        List<Map<String, dynamic>>.from(currentShoppingList)
+      );
+    } else {
       // Normale Liste
       currentShoppingList.add(item);
       await updateDataBase(listId);
-    } catch (e) {
-      print('Error adding item: $e');
-      throw Exception('Failed to add item');
     }
+  } catch (e) {
+    print('Error adding item: $e');
+    throw Exception('Failed to add item');
   }
+}
 
   // Update existing item
   Future<void> updateItem(String listName, int index, Map<String, String> newItem) async {
