@@ -3,6 +3,7 @@ import 'package:Lists/util/share_list_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Lists/data/firebase_service.dart';
 
 class MyDrawer extends StatefulWidget {
   final List<String> listNames;
@@ -33,27 +34,39 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late ScrollController _scrollController;
+  late FirebaseService _firebaseService;
+  
   final user = FirebaseAuth.instance.currentUser;
   bool _mounted = true;
   
-  // Cache für Namen und geteilte Benutzer
   Map<String, String> _displayNameCache = {};
   Map<String, List<String>> _sharedUsersCache = {};
   bool _isLoadingNames = true;
+  bool _isInitialized = false;
   
   @override
   void initState() {
     super.initState();
+    _initializeServices();
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
     _scrollController = ScrollController();
     _animationController.forward();
-    
-    // Initial Namen und geteilte Benutzer laden
-    _loadDisplayNames();
-    _loadSharedUsers(widget.currentListName);
+  }
+
+  Future<void> _initializeServices() async {
+    try {
+      _firebaseService = await FirebaseService.create();
+      if (_mounted) {
+        setState(() => _isInitialized = true);
+        await _loadDisplayNames();
+        await _loadSharedUsers(widget.currentListName);
+      }
+    } catch (e) {
+      print('Error initializing services: $e');
+    }
   }
 
   @override
@@ -75,71 +88,35 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     }
   }
 
-  // Lade alle Listennamen
   Future<void> _loadDisplayNames() async {
-    if (!_mounted) return;
+    if (!_mounted || !_isInitialized) return;
     
     setState(() => _isLoadingNames = true);
     
     try {
-      final firestore = FirebaseFirestore.instance;
-      final userId = FirebaseAuth.instance.currentUser?.uid;
+      final names = await _firebaseService.batchLoadListNames(widget.listNames);
       
-      if (userId == null) return;
-
-      for (String listId in widget.listNames) {
-        if (!_mounted) return;
-
-        if (listId.contains('_')) {
-          // Geteilte Liste
-          final sharedDoc = await firestore
-              .collection('lists')
-              .doc(userId)
-              .collection('sharedLists')
-              .doc(listId)
-              .get();
-
-          if (sharedDoc.exists) {
-            final name = sharedDoc.data()?['name'];
-            if (name != null && name.toString().isNotEmpty) {
-              setState(() => _displayNameCache[listId] = name);
-            }
-          }
-        } else {
-          // Normale Liste
-          final doc = await firestore
-              .collection('lists')
-              .doc(userId)
-              .collection('userLists')
-              .doc(listId)
-              .get();
-
-          if (doc.exists) {
-            final name = doc.data()?['name'] ?? listId;
-            setState(() => _displayNameCache[listId] = name);
-          }
-        }
+      if (_mounted) {
+        setState(() {
+          _displayNameCache = names;
+          _isLoadingNames = false;
+        });
       }
     } catch (e) {
       print('Error loading display names: $e');
-    } finally {
       if (_mounted) {
         setState(() => _isLoadingNames = false);
       }
     }
   }
 
-  // Lade geteilte Benutzer für eine Liste
   Future<void> _loadSharedUsers(String listName) async {
-    if (!_mounted) return;
+    if (!_mounted || !_isInitialized) return;
 
     try {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) return;
-
       final docSnapshot = await FirebaseFirestore.instance
           .collection('lists')
-          .doc(user.uid)
+          .doc(user?.uid)
           .collection('userLists')
           .doc(listName)
           .get();
@@ -150,16 +127,16 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
       final List<String> sharedWithIds = List<String>.from(data?['sharedWith'] ?? []);
       
       final List<String> sharedEmails = [];
-      for (String userId in sharedWithIds) {
-        if (!_mounted) return;
-        
-        final userDoc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userId)
-            .get();
-            
-        if (userDoc.exists) {
-          final email = userDoc.data()?['email'] as String?;
+      final futures = sharedWithIds.map((userId) => FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get());
+          
+      final userDocs = await Future.wait(futures);
+      
+      for (final doc in userDocs) {
+        if (doc.exists) {
+          final email = doc.data()?['email'] as String?;
           if (email != null) sharedEmails.add(email);
         }
       }
@@ -174,21 +151,23 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     }
   }
 
-  // Handle user logout
   Future<void> _handleLogout() async {
-    final navigator = Navigator.of(context);
-    await FirebaseAuth.instance.signOut();
-    navigator.pop(); // Close drawer
+    try {
+      await _firebaseService.cleanup();
+      final navigator = Navigator.of(context);
+      await FirebaseAuth.instance.signOut();
+      navigator.pop();
+    } catch (e) {
+      print('Error during logout: $e');
+    }
   }
 
-  // Show enhanced share dialog
   void _showShareDialog(BuildContext context) async {
-    // Stelle sicher, dass die geteilten Benutzer geladen sind
     await _loadSharedUsers(widget.currentListName);
     
     if (!mounted) return;
     
-    Navigator.pop(context); // Close drawer
+    Navigator.pop(context);
     
     showDialog(
       context: context,
@@ -200,15 +179,67 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     );
   }
 
-  // Handle share action
   Future<void> _handleShare(String email) async {
     try {
       await widget.onShareList(email);
-      // Aktualisiere Cache nach erfolgreichem Teilen
       await _loadSharedUsers(widget.currentListName);
     } catch (e) {
       rethrow;
     }
+  }
+
+  void _showDeleteConfirmation(BuildContext context, String listName) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          'Delete List',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to delete "${_displayNameCache[listName] ?? listName}"?',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              widget.onDeleteList(listName);
+              Navigator.pop(context);
+              Navigator.pop(context);
+              if (_isInitialized) {
+                await _firebaseService.clearNameCache();
+              }
+            },
+            child: Text(
+              'Delete',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 24,
+      ),
+    );
   }
 
   @override
@@ -526,61 +557,5 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
         ),
       ),
     );
-  }
-
-  void _showDeleteConfirmation(BuildContext context, String listName) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        title: Text(
-          'Delete List',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        content: Text(
-          'Are you sure you want to delete "${_displayNameCache[listName] ?? listName}"?',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              'Cancel',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              widget.onDeleteList(listName);
-              Navigator.pop(context);  // Close dialog
-              Navigator.pop(context);  // Close drawer
-            },
-            child: Text(
-              'Delete',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.error,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 24,
-      ),
-    );
-  }
-
-  // Helper method to check if a list is shared
-  bool _isListShared(String listName) {
-    return _sharedUsersCache[listName]?.isNotEmpty ?? false;
   }
 }

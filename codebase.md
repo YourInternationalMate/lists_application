@@ -51,7 +51,7 @@ url_launcher_windows=/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-
 # .flutter-plugins-dependencies
 
 ```
-{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_android-2.2.12/","native_build":true,"dependencies":[]},{"name":"url_launcher_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.13/","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_macos","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.1/","native_build":true,"dependencies":[]}],"linux":[{"name":"path_provider_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/","native_build":false,"dependencies":[]},{"name":"url_launcher_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.0/","native_build":true,"dependencies":[]}],"windows":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/","native_build":false,"dependencies":[]},{"name":"url_launcher_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.2/","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.2/","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/","dependencies":[]},{"name":"url_launcher_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"path_provider","dependencies":["path_provider_android","path_provider_foundation","path_provider_linux","path_provider_windows"]},{"name":"path_provider_android","dependencies":[]},{"name":"path_provider_foundation","dependencies":[]},{"name":"path_provider_linux","dependencies":[]},{"name":"path_provider_windows","dependencies":[]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2024-10-28 15:46:11.591117","version":"3.24.3","swift_package_manager_enabled":false}
+{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_android-2.2.12/","native_build":true,"dependencies":[]},{"name":"url_launcher_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.13/","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_macos","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.1/","native_build":true,"dependencies":[]}],"linux":[{"name":"path_provider_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/","native_build":false,"dependencies":[]},{"name":"url_launcher_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.0/","native_build":true,"dependencies":[]}],"windows":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/","native_build":false,"dependencies":[]},{"name":"url_launcher_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.2/","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.2/","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/","dependencies":[]},{"name":"url_launcher_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"path_provider","dependencies":["path_provider_android","path_provider_foundation","path_provider_linux","path_provider_windows"]},{"name":"path_provider_android","dependencies":[]},{"name":"path_provider_foundation","dependencies":[]},{"name":"path_provider_linux","dependencies":[]},{"name":"path_provider_windows","dependencies":[]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2024-10-28 16:13:07.121363","version":"3.24.3","swift_package_manager_enabled":false}
 ```
 
 # .gitignore
@@ -851,89 +851,87 @@ class FirebaseService {
   }
 
   Future<void> shareListWithUser(String listId, String targetEmail) async {
-  if (currentUserId == null) throw Exception('Not authenticated');
-  if (targetEmail == _auth.currentUser?.email) throw Exception('Cannot share list with yourself');
+    if (currentUserId == null) throw Exception('Not authenticated');
+    if (targetEmail == _auth.currentUser?.email) throw Exception('Cannot share list with yourself');
 
-  try {
-    // Start a new batch operation
-    final batch = _firestore.batch();
+    try {
+      final batch = _firestore.batch();
 
-    // Check rate limit
-    if (!await checkShareRateLimit()) {
-      throw Exception('Sharing rate limit exceeded. Please try again later.');
+      if (!await checkShareRateLimit()) {
+        throw Exception('Sharing rate limit exceeded. Please try again later.');
+      }
+
+      // Get the target user
+      final userQuery = await _firestore
+          .collection('users')
+          .where('email', isEqualTo: targetEmail)
+          .limit(1)
+          .get();
+
+      if (userQuery.docs.isEmpty) {
+        throw Exception('User not found');
+      }
+
+      final targetUserId = userQuery.docs.first.id;
+
+      // Get the original list document
+      final listDoc = await _firestore
+          .collection('lists')
+          .doc(currentUserId)
+          .collection('userLists')
+          .doc(listId)
+          .get();
+
+      if (!listDoc.exists) {
+        throw Exception('List does not exist');
+      }
+
+      final listData = listDoc.data()!;
+      final displayName = listData['name'] ?? listId; // Get the display name
+
+      // Reference to the original list
+      final originalListRef = _firestore
+          .collection('lists')
+          .doc(currentUserId)
+          .collection('userLists')
+          .doc(listId);
+
+      // Update the original list document
+      batch.update(originalListRef, {
+        'sharedWith': FieldValue.arrayUnion([targetUserId]),
+        'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
+        'lastSharedAt': FieldValue.serverTimestamp(),
+        'lastModified': FieldValue.serverTimestamp(),
+        'owner': currentUserId,
+      });
+
+      // Create shared list reference
+      final sharedListId = '${currentUserId}_$listId';
+      final sharedListRef = _firestore
+          .collection('lists')
+          .doc(targetUserId)
+          .collection('sharedLists')
+          .doc(sharedListId);
+
+      // Create shared list document with the display name
+      batch.set(sharedListRef, {
+        'originalListId': listId,
+        'ownerId': currentUserId,
+        'ownerEmail': _auth.currentUser?.email,
+        'name': displayName, // Set the display name
+        'items': listData['items'] ?? [],
+        'sharedWith': [targetUserId],
+        'sharedAt': FieldValue.serverTimestamp(),
+        'lastModified': FieldValue.serverTimestamp(),
+      });
+
+      await batch.commit();
+
+    } catch (e) {
+      print('Error sharing list: $e');
+      throw Exception('Failed to share list: ${e.toString()}');
     }
-
-    // Get the target user
-    final userQuery = await _firestore
-        .collection('users')
-        .where('email', isEqualTo: targetEmail)
-        .limit(1)
-        .get();
-
-    if (userQuery.docs.isEmpty) {
-      throw Exception('User not found');
-    }
-
-    final targetUserId = userQuery.docs.first.id;
-
-    // Get the list document
-    final listDoc = await _firestore
-        .collection('lists')
-        .doc(currentUserId)
-        .collection('userLists')
-        .doc(listId)
-        .get();
-
-    if (!listDoc.exists) {
-      throw Exception('List does not exist');
-    }
-
-    // Reference to the original list
-    final originalListRef = _firestore
-        .collection('lists')
-        .doc(currentUserId)
-        .collection('userLists')
-        .doc(listId);
-
-    // Update the original list document with sharing information
-    batch.update(originalListRef, {
-      'sharedWith': FieldValue.arrayUnion([targetUserId]),
-      'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
-      'lastSharedAt': FieldValue.serverTimestamp(),
-      'lastModified': FieldValue.serverTimestamp(),
-      'owner': currentUserId,
-    });
-
-    // Create the shared list reference in target user's collection
-    final sharedListId = '${currentUserId}_$listId';
-    final sharedListRef = _firestore
-        .collection('lists')
-        .doc(targetUserId)
-        .collection('sharedLists')
-        .doc(sharedListId);
-
-    // Get current list data
-    final listData = listDoc.data()!;
-
-    // Create shared list document with the correct name
-    batch.set(sharedListRef, {
-      'originalListId': listId,
-      'ownerId': currentUserId,
-      'ownerEmail': _auth.currentUser?.email,
-      'name': listData['name'] ?? listId,  // Wichtig: Den Original-Namen übertragen
-      'items': listData['items'] ?? [],
-      'sharedWith': [targetUserId],
-      'sharedAt': FieldValue.serverTimestamp(),
-      'lastModified': FieldValue.serverTimestamp(),
-    });
-
-    await batch.commit();
-
-  } catch (e) {
-    print('Error sharing list: $e');
-    throw Exception('Failed to share list: ${e.toString()}');
   }
-}
 
 // Rate limiting helper function
 Future<bool> checkShareRateLimit() async {
@@ -1104,60 +1102,61 @@ Future<void> updateExistingLists() async {
   }
 
   Future<String> getListDisplayName(String listId) async {
-  if (currentUserId == null) return listId;
+    if (currentUserId == null) return listId;
 
-  try {
-    if (listId.contains('_')) {
-      // Wenn es eine geteilte Liste ist
-      final sharedDoc = await _firestore
-          .collection('lists')
-          .doc(currentUserId)
-          .collection('sharedLists')
-          .doc(listId)
-          .get();
+    try {
+      if (listId.contains('_')) {
+        // For shared lists, first check the shared list document
+        final sharedDoc = await _firestore
+            .collection('lists')
+            .doc(currentUserId)
+            .collection('sharedLists')
+            .doc(listId)
+            .get();
 
-      if (sharedDoc.exists) {
-        // Erste Priorität: Name aus der sharedLists-Collection
-        final name = sharedDoc.data()?['name'];
-        if (name != null && name.toString().isNotEmpty) {
-          return name;
-        }
+        if (sharedDoc.exists) {
+          final data = sharedDoc.data()!;
+          final name = data['name'];
+          if (name != null && name.toString().isNotEmpty) {
+            return name;
+          }
 
-        // Zweite Priorität: Original-Liste nachschlagen
-        final ownerId = sharedDoc.data()?['ownerId'];
-        final originalListId = sharedDoc.data()?['originalListId'];
-        if (ownerId != null && originalListId != null) {
-          final originalDoc = await _firestore
-              .collection('lists')
-              .doc(ownerId)
-              .collection('userLists')
-              .doc(originalListId)
-              .get();
+          // If no name in shared list, try to get from original list
+          final ownerId = data['ownerId'];
+          final originalListId = data['originalListId'];
+          if (ownerId != null && originalListId != null) {
+            final originalDoc = await _firestore
+                .collection('lists')
+                .doc(ownerId)
+                .collection('userLists')
+                .doc(originalListId)
+                .get();
 
-          if (originalDoc.exists) {
-            return originalDoc.data()?['name'] ?? listId;
+            if (originalDoc.exists) {
+              return originalDoc.data()?['name'] ?? listId;
+            }
           }
         }
-      }
-    } else {
-      // Normale Liste
-      final doc = await _firestore
-          .collection('lists')
-          .doc(currentUserId)
-          .collection('userLists')
-          .doc(listId)
-          .get();
+      } else {
+        // For normal lists
+        final doc = await _firestore
+            .collection('lists')
+            .doc(currentUserId)
+            .collection('userLists')
+            .doc(listId)
+            .get();
 
-      if (doc.exists) {
-        return doc.data()?['name'] ?? listId;
+        if (doc.exists) {
+          return doc.data()?['name'] ?? listId;
+        }
       }
+      
+      return listId;
+    } catch (e) {
+      print('Error getting list display name: $e');
+      return listId;
     }
-    return listId;
-  } catch (e) {
-    print('Error getting list display name: $e');
-    return listId;
   }
-}
 
   Future<Map<String, String>?> getOriginalListInfo(String sharedListId) async {
   try {
@@ -3806,8 +3805,10 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
   final user = FirebaseAuth.instance.currentUser;
   bool _mounted = true;
   
-  // Cache für geteilte Benutzer
+  // Cache für Namen und geteilte Benutzer
+  Map<String, String> _displayNameCache = {};
   Map<String, List<String>> _sharedUsersCache = {};
+  bool _isLoadingNames = true;
   
   @override
   void initState() {
@@ -3819,7 +3820,8 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     _scrollController = ScrollController();
     _animationController.forward();
     
-    // Lade initial die geteilten Benutzer für die aktuelle Liste
+    // Initial Namen und geteilte Benutzer laden
+    _loadDisplayNames();
     _loadSharedUsers(widget.currentListName);
   }
 
@@ -3831,6 +3833,72 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(MyDrawer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.listNames != widget.listNames) {
+      _loadDisplayNames();
+    }
+    if (oldWidget.currentListName != widget.currentListName) {
+      _loadSharedUsers(widget.currentListName);
+    }
+  }
+
+  // Lade alle Listennamen
+  Future<void> _loadDisplayNames() async {
+    if (!_mounted) return;
+    
+    setState(() => _isLoadingNames = true);
+    
+    try {
+      final firestore = FirebaseFirestore.instance;
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      
+      if (userId == null) return;
+
+      for (String listId in widget.listNames) {
+        if (!_mounted) return;
+
+        if (listId.contains('_')) {
+          // Geteilte Liste
+          final sharedDoc = await firestore
+              .collection('lists')
+              .doc(userId)
+              .collection('sharedLists')
+              .doc(listId)
+              .get();
+
+          if (sharedDoc.exists) {
+            final name = sharedDoc.data()?['name'];
+            if (name != null && name.toString().isNotEmpty) {
+              setState(() => _displayNameCache[listId] = name);
+            }
+          }
+        } else {
+          // Normale Liste
+          final doc = await firestore
+              .collection('lists')
+              .doc(userId)
+              .collection('userLists')
+              .doc(listId)
+              .get();
+
+          if (doc.exists) {
+            final name = doc.data()?['name'] ?? listId;
+            setState(() => _displayNameCache[listId] = name);
+          }
+        }
+      }
+    } catch (e) {
+      print('Error loading display names: $e');
+    } finally {
+      if (_mounted) {
+        setState(() => _isLoadingNames = false);
+      }
+    }
+  }
+
+  // Lade geteilte Benutzer für eine Liste
   Future<void> _loadSharedUsers(String listName) async {
     if (!_mounted) return;
 
@@ -3894,7 +3962,7 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     showDialog(
       context: context,
       builder: (context) => ShareListDialog(
-        listName: widget.currentListName,
+        listName: _displayNameCache[widget.currentListName] ?? widget.currentListName,
         onShare: _handleShare,
         currentlySharedWith: _sharedUsersCache[widget.currentListName],
       ),
@@ -4078,95 +4146,94 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     );
   }
 
-  // Build currency selector with animation
   Widget _buildCurrencySelector(BuildContext context) {
-  return AnimatedBuilder(
-    animation: _animationController,
-    builder: (context, child) {
-      final currencyAnimation = CurvedAnimation(
-        parent: _animationController,
-        curve: const Interval(0.2, 0.8, curve: Curves.easeOut),
-      );
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        final currencyAnimation = CurvedAnimation(
+          parent: _animationController,
+          curve: const Interval(0.2, 0.8, curve: Curves.easeOut),
+        );
 
-      return Transform.translate(
-        offset: Offset(-300 * (1 - currencyAnimation.value), 0),
-        child: Opacity(
-          opacity: currencyAnimation.value,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Currency',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+        return Transform.translate(
+          offset: Offset(-300 * (1 - currencyAnimation.value), 0),
+          child: Opacity(
+            opacity: currencyAnimation.value,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Currency',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
+                  const SizedBox(width: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        _buildCurrencyOption(context, '€'),
+                        Container(
+                          width: 1,
+                          height: 24,
+                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                        ),
+                        _buildCurrencyOption(context, '\$'),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      _buildCurrencyOption(context, '€'),
-                      Container(
-                        width: 1,
-                        height: 24,
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-                      ),
-                      _buildCurrencyOption(context, '\$'),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildCurrencyOption(BuildContext context, String currency) {
+    final isSelected = widget.currentCurrency == currency;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => widget.onCurrencyChange(currency),
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          decoration: BoxDecoration(
+            color: isSelected 
+                ? Theme.of(context).colorScheme.secondary
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            currency,
+            style: TextStyle(
+              color: isSelected
+                  ? Theme.of(context).colorScheme.onSecondary
+                  : Theme.of(context).colorScheme.onSurface,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
         ),
-      );
-    },
-  );
-}
-
-Widget _buildCurrencyOption(BuildContext context, String currency) {
-  final isSelected = widget.currentCurrency == currency;
-
-  return Material(
-    color: Colors.transparent,
-    child: InkWell(
-      onTap: () => widget.onCurrencyChange(currency),
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected 
-              ? Theme.of(context).colorScheme.secondary
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          currency,
-          style: TextStyle(
-            color: isSelected
-                ? Theme.of(context).colorScheme.onSecondary
-                : Theme.of(context).colorScheme.onPrimary,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-  // Build animated list tiles for each shopping list
   List<Widget> _buildListTiles() {
     return widget.listNames.asMap().entries.map((entry) {
       final index = entry.key;
-      final listName = entry.value;
+      final listId = entry.value;
+      final displayName = _displayNameCache[listId] ?? listId;
       
       final Animation<double> animation = CurvedAnimation(
         parent: _animationController,
@@ -4188,61 +4255,48 @@ Widget _buildCurrencyOption(BuildContext context, String currency) {
             ),
           );
         },
-        child: MyListTile(
-          title: listName,
-          onTap: () {
-            widget.onListChange(listName);
-            Navigator.pop(context);
-          },
-          deleteFunction: (context) {
-            _showDeleteConfirmation(context, listName);
-          },
-        ),
+        child: _isLoadingNames && !_displayNameCache.containsKey(listId)
+            ? _buildLoadingTile()
+            : MyListTile(
+                title: displayName,
+                onTap: () {
+                  widget.onListChange(listId);
+                  Navigator.pop(context);
+                },
+                deleteFunction: (context) {
+                  _showDeleteConfirmation(context, listId);
+                },
+              ),
       );
     }).toList();
   }
 
-  // Build animated create new list button
-  Widget _buildCreateNewListButton(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        final buttonAnimation = CurvedAnimation(
-          parent: _animationController,
-          curve: const Interval(0.6, 1.0, curve: Curves.easeOut),
-        );
-
-        return Transform.translate(
-          offset: Offset(0, 50 * (1 - buttonAnimation.value)),
-          child: Opacity(
-            opacity: buttonAnimation.value,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: ListTile(
-                leading: Icon(
-                  Icons.add,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                title: Text(
-                  'Create New List',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  widget.onCreateNewList();
-                },
-                hoverColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+  Widget _buildLoadingTile() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+      child: Container(
+        height: 80,
+        padding: const EdgeInsets.all(25),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: SizedBox(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).colorScheme.onPrimary,
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
-  // Show delete confirmation dialog
   void _showDeleteConfirmation(BuildContext context, String listName) {
     showDialog(
       context: context,
@@ -4250,34 +4304,53 @@ Widget _buildCurrencyOption(BuildContext context, String currency) {
         backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           'Delete List',
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         content: Text(
-          'Are you sure you want to delete "$listName"?',
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          'Are you sure you want to delete "${_displayNameCache[listName] ?? listName}"?',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
               'Cancel',
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ),
           TextButton(
             onPressed: () {
               widget.onDeleteList(listName);
-              Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context);  // Close dialog
+              Navigator.pop(context);  // Close drawer
             },
-            child: const Text(
+            child: Text(
               'Delete',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 24,
       ),
     );
+  }
+
+  // Helper method to check if a list is shared
+  bool _isListShared(String listName) {
+    return _sharedUsersCache[listName]?.isNotEmpty ?? false;
   }
 }
 ```
