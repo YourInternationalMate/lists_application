@@ -203,89 +203,87 @@ class FirebaseService {
   }
 
   Future<void> shareListWithUser(String listId, String targetEmail) async {
-  if (currentUserId == null) throw Exception('Not authenticated');
-  if (targetEmail == _auth.currentUser?.email) throw Exception('Cannot share list with yourself');
+    if (currentUserId == null) throw Exception('Not authenticated');
+    if (targetEmail == _auth.currentUser?.email) throw Exception('Cannot share list with yourself');
 
-  try {
-    // Start a new batch operation
-    final batch = _firestore.batch();
+    try {
+      final batch = _firestore.batch();
 
-    // Check rate limit
-    if (!await checkShareRateLimit()) {
-      throw Exception('Sharing rate limit exceeded. Please try again later.');
+      if (!await checkShareRateLimit()) {
+        throw Exception('Sharing rate limit exceeded. Please try again later.');
+      }
+
+      // Get the target user
+      final userQuery = await _firestore
+          .collection('users')
+          .where('email', isEqualTo: targetEmail)
+          .limit(1)
+          .get();
+
+      if (userQuery.docs.isEmpty) {
+        throw Exception('User not found');
+      }
+
+      final targetUserId = userQuery.docs.first.id;
+
+      // Get the original list document
+      final listDoc = await _firestore
+          .collection('lists')
+          .doc(currentUserId)
+          .collection('userLists')
+          .doc(listId)
+          .get();
+
+      if (!listDoc.exists) {
+        throw Exception('List does not exist');
+      }
+
+      final listData = listDoc.data()!;
+      final displayName = listData['name'] ?? listId; // Get the display name
+
+      // Reference to the original list
+      final originalListRef = _firestore
+          .collection('lists')
+          .doc(currentUserId)
+          .collection('userLists')
+          .doc(listId);
+
+      // Update the original list document
+      batch.update(originalListRef, {
+        'sharedWith': FieldValue.arrayUnion([targetUserId]),
+        'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
+        'lastSharedAt': FieldValue.serverTimestamp(),
+        'lastModified': FieldValue.serverTimestamp(),
+        'owner': currentUserId,
+      });
+
+      // Create shared list reference
+      final sharedListId = '${currentUserId}_$listId';
+      final sharedListRef = _firestore
+          .collection('lists')
+          .doc(targetUserId)
+          .collection('sharedLists')
+          .doc(sharedListId);
+
+      // Create shared list document with the display name
+      batch.set(sharedListRef, {
+        'originalListId': listId,
+        'ownerId': currentUserId,
+        'ownerEmail': _auth.currentUser?.email,
+        'name': displayName, // Set the display name
+        'items': listData['items'] ?? [],
+        'sharedWith': [targetUserId],
+        'sharedAt': FieldValue.serverTimestamp(),
+        'lastModified': FieldValue.serverTimestamp(),
+      });
+
+      await batch.commit();
+
+    } catch (e) {
+      print('Error sharing list: $e');
+      throw Exception('Failed to share list: ${e.toString()}');
     }
-
-    // Get the target user
-    final userQuery = await _firestore
-        .collection('users')
-        .where('email', isEqualTo: targetEmail)
-        .limit(1)
-        .get();
-
-    if (userQuery.docs.isEmpty) {
-      throw Exception('User not found');
-    }
-
-    final targetUserId = userQuery.docs.first.id;
-
-    // Get the list document
-    final listDoc = await _firestore
-        .collection('lists')
-        .doc(currentUserId)
-        .collection('userLists')
-        .doc(listId)
-        .get();
-
-    if (!listDoc.exists) {
-      throw Exception('List does not exist');
-    }
-
-    // Reference to the original list
-    final originalListRef = _firestore
-        .collection('lists')
-        .doc(currentUserId)
-        .collection('userLists')
-        .doc(listId);
-
-    // Update the original list document with sharing information
-    batch.update(originalListRef, {
-      'sharedWith': FieldValue.arrayUnion([targetUserId]),
-      'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
-      'lastSharedAt': FieldValue.serverTimestamp(),
-      'lastModified': FieldValue.serverTimestamp(),
-      'owner': currentUserId,
-    });
-
-    // Create the shared list reference in target user's collection
-    final sharedListId = '${currentUserId}_$listId';
-    final sharedListRef = _firestore
-        .collection('lists')
-        .doc(targetUserId)
-        .collection('sharedLists')
-        .doc(sharedListId);
-
-    // Get current list data
-    final listData = listDoc.data()!;
-
-    // Create shared list document with the correct name
-    batch.set(sharedListRef, {
-      'originalListId': listId,
-      'ownerId': currentUserId,
-      'ownerEmail': _auth.currentUser?.email,
-      'name': listData['name'] ?? listId,  // Wichtig: Den Original-Namen übertragen
-      'items': listData['items'] ?? [],
-      'sharedWith': [targetUserId],
-      'sharedAt': FieldValue.serverTimestamp(),
-      'lastModified': FieldValue.serverTimestamp(),
-    });
-
-    await batch.commit();
-
-  } catch (e) {
-    print('Error sharing list: $e');
-    throw Exception('Failed to share list: ${e.toString()}');
   }
-}
 
 // Rate limiting helper function
 Future<bool> checkShareRateLimit() async {
@@ -456,60 +454,61 @@ Future<void> updateExistingLists() async {
   }
 
   Future<String> getListDisplayName(String listId) async {
-  if (currentUserId == null) return listId;
+    if (currentUserId == null) return listId;
 
-  try {
-    if (listId.contains('_')) {
-      // Wenn es eine geteilte Liste ist
-      final sharedDoc = await _firestore
-          .collection('lists')
-          .doc(currentUserId)
-          .collection('sharedLists')
-          .doc(listId)
-          .get();
+    try {
+      if (listId.contains('_')) {
+        // For shared lists, first check the shared list document
+        final sharedDoc = await _firestore
+            .collection('lists')
+            .doc(currentUserId)
+            .collection('sharedLists')
+            .doc(listId)
+            .get();
 
-      if (sharedDoc.exists) {
-        // Erste Priorität: Name aus der sharedLists-Collection
-        final name = sharedDoc.data()?['name'];
-        if (name != null && name.toString().isNotEmpty) {
-          return name;
-        }
+        if (sharedDoc.exists) {
+          final data = sharedDoc.data()!;
+          final name = data['name'];
+          if (name != null && name.toString().isNotEmpty) {
+            return name;
+          }
 
-        // Zweite Priorität: Original-Liste nachschlagen
-        final ownerId = sharedDoc.data()?['ownerId'];
-        final originalListId = sharedDoc.data()?['originalListId'];
-        if (ownerId != null && originalListId != null) {
-          final originalDoc = await _firestore
-              .collection('lists')
-              .doc(ownerId)
-              .collection('userLists')
-              .doc(originalListId)
-              .get();
+          // If no name in shared list, try to get from original list
+          final ownerId = data['ownerId'];
+          final originalListId = data['originalListId'];
+          if (ownerId != null && originalListId != null) {
+            final originalDoc = await _firestore
+                .collection('lists')
+                .doc(ownerId)
+                .collection('userLists')
+                .doc(originalListId)
+                .get();
 
-          if (originalDoc.exists) {
-            return originalDoc.data()?['name'] ?? listId;
+            if (originalDoc.exists) {
+              return originalDoc.data()?['name'] ?? listId;
+            }
           }
         }
-      }
-    } else {
-      // Normale Liste
-      final doc = await _firestore
-          .collection('lists')
-          .doc(currentUserId)
-          .collection('userLists')
-          .doc(listId)
-          .get();
+      } else {
+        // For normal lists
+        final doc = await _firestore
+            .collection('lists')
+            .doc(currentUserId)
+            .collection('userLists')
+            .doc(listId)
+            .get();
 
-      if (doc.exists) {
-        return doc.data()?['name'] ?? listId;
+        if (doc.exists) {
+          return doc.data()?['name'] ?? listId;
+        }
       }
+      
+      return listId;
+    } catch (e) {
+      print('Error getting list display name: $e');
+      return listId;
     }
-    return listId;
-  } catch (e) {
-    print('Error getting list display name: $e');
-    return listId;
   }
-}
 
   Future<Map<String, String>?> getOriginalListInfo(String sharedListId) async {
   try {

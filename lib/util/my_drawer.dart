@@ -36,8 +36,10 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
   final user = FirebaseAuth.instance.currentUser;
   bool _mounted = true;
   
-  // Cache für geteilte Benutzer
+  // Cache für Namen und geteilte Benutzer
+  Map<String, String> _displayNameCache = {};
   Map<String, List<String>> _sharedUsersCache = {};
+  bool _isLoadingNames = true;
   
   @override
   void initState() {
@@ -49,7 +51,8 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     _scrollController = ScrollController();
     _animationController.forward();
     
-    // Lade initial die geteilten Benutzer für die aktuelle Liste
+    // Initial Namen und geteilte Benutzer laden
+    _loadDisplayNames();
     _loadSharedUsers(widget.currentListName);
   }
 
@@ -61,6 +64,72 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(MyDrawer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.listNames != widget.listNames) {
+      _loadDisplayNames();
+    }
+    if (oldWidget.currentListName != widget.currentListName) {
+      _loadSharedUsers(widget.currentListName);
+    }
+  }
+
+  // Lade alle Listennamen
+  Future<void> _loadDisplayNames() async {
+    if (!_mounted) return;
+    
+    setState(() => _isLoadingNames = true);
+    
+    try {
+      final firestore = FirebaseFirestore.instance;
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      
+      if (userId == null) return;
+
+      for (String listId in widget.listNames) {
+        if (!_mounted) return;
+
+        if (listId.contains('_')) {
+          // Geteilte Liste
+          final sharedDoc = await firestore
+              .collection('lists')
+              .doc(userId)
+              .collection('sharedLists')
+              .doc(listId)
+              .get();
+
+          if (sharedDoc.exists) {
+            final name = sharedDoc.data()?['name'];
+            if (name != null && name.toString().isNotEmpty) {
+              setState(() => _displayNameCache[listId] = name);
+            }
+          }
+        } else {
+          // Normale Liste
+          final doc = await firestore
+              .collection('lists')
+              .doc(userId)
+              .collection('userLists')
+              .doc(listId)
+              .get();
+
+          if (doc.exists) {
+            final name = doc.data()?['name'] ?? listId;
+            setState(() => _displayNameCache[listId] = name);
+          }
+        }
+      }
+    } catch (e) {
+      print('Error loading display names: $e');
+    } finally {
+      if (_mounted) {
+        setState(() => _isLoadingNames = false);
+      }
+    }
+  }
+
+  // Lade geteilte Benutzer für eine Liste
   Future<void> _loadSharedUsers(String listName) async {
     if (!_mounted) return;
 
@@ -124,7 +193,7 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     showDialog(
       context: context,
       builder: (context) => ShareListDialog(
-        listName: widget.currentListName,
+        listName: _displayNameCache[widget.currentListName] ?? widget.currentListName,
         onShare: _handleShare,
         currentlySharedWith: _sharedUsersCache[widget.currentListName],
       ),
@@ -308,95 +377,94 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
     );
   }
 
-  // Build currency selector with animation
   Widget _buildCurrencySelector(BuildContext context) {
-  return AnimatedBuilder(
-    animation: _animationController,
-    builder: (context, child) {
-      final currencyAnimation = CurvedAnimation(
-        parent: _animationController,
-        curve: const Interval(0.2, 0.8, curve: Curves.easeOut),
-      );
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        final currencyAnimation = CurvedAnimation(
+          parent: _animationController,
+          curve: const Interval(0.2, 0.8, curve: Curves.easeOut),
+        );
 
-      return Transform.translate(
-        offset: Offset(-300 * (1 - currencyAnimation.value), 0),
-        child: Opacity(
-          opacity: currencyAnimation.value,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Currency',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+        return Transform.translate(
+          offset: Offset(-300 * (1 - currencyAnimation.value), 0),
+          child: Opacity(
+            opacity: currencyAnimation.value,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Currency',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
+                  const SizedBox(width: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        _buildCurrencyOption(context, '€'),
+                        Container(
+                          width: 1,
+                          height: 24,
+                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                        ),
+                        _buildCurrencyOption(context, '\$'),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      _buildCurrencyOption(context, '€'),
-                      Container(
-                        width: 1,
-                        height: 24,
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
-                      ),
-                      _buildCurrencyOption(context, '\$'),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildCurrencyOption(BuildContext context, String currency) {
+    final isSelected = widget.currentCurrency == currency;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => widget.onCurrencyChange(currency),
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          decoration: BoxDecoration(
+            color: isSelected 
+                ? Theme.of(context).colorScheme.secondary
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            currency,
+            style: TextStyle(
+              color: isSelected
+                  ? Theme.of(context).colorScheme.onSecondary
+                  : Theme.of(context).colorScheme.onSurface,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
         ),
-      );
-    },
-  );
-}
-
-Widget _buildCurrencyOption(BuildContext context, String currency) {
-  final isSelected = widget.currentCurrency == currency;
-
-  return Material(
-    color: Colors.transparent,
-    child: InkWell(
-      onTap: () => widget.onCurrencyChange(currency),
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected 
-              ? Theme.of(context).colorScheme.secondary
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          currency,
-          style: TextStyle(
-            color: isSelected
-                ? Theme.of(context).colorScheme.onSecondary
-                : Theme.of(context).colorScheme.onPrimary,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-  // Build animated list tiles for each shopping list
   List<Widget> _buildListTiles() {
     return widget.listNames.asMap().entries.map((entry) {
       final index = entry.key;
-      final listName = entry.value;
+      final listId = entry.value;
+      final displayName = _displayNameCache[listId] ?? listId;
       
       final Animation<double> animation = CurvedAnimation(
         parent: _animationController,
@@ -418,61 +486,48 @@ Widget _buildCurrencyOption(BuildContext context, String currency) {
             ),
           );
         },
-        child: MyListTile(
-          title: listName,
-          onTap: () {
-            widget.onListChange(listName);
-            Navigator.pop(context);
-          },
-          deleteFunction: (context) {
-            _showDeleteConfirmation(context, listName);
-          },
-        ),
+        child: _isLoadingNames && !_displayNameCache.containsKey(listId)
+            ? _buildLoadingTile()
+            : MyListTile(
+                title: displayName,
+                onTap: () {
+                  widget.onListChange(listId);
+                  Navigator.pop(context);
+                },
+                deleteFunction: (context) {
+                  _showDeleteConfirmation(context, listId);
+                },
+              ),
       );
     }).toList();
   }
 
-  // Build animated create new list button
-  Widget _buildCreateNewListButton(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        final buttonAnimation = CurvedAnimation(
-          parent: _animationController,
-          curve: const Interval(0.6, 1.0, curve: Curves.easeOut),
-        );
-
-        return Transform.translate(
-          offset: Offset(0, 50 * (1 - buttonAnimation.value)),
-          child: Opacity(
-            opacity: buttonAnimation.value,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: ListTile(
-                leading: Icon(
-                  Icons.add,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                title: Text(
-                  'Create New List',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  widget.onCreateNewList();
-                },
-                hoverColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+  Widget _buildLoadingTile() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+      child: Container(
+        height: 80,
+        padding: const EdgeInsets.all(25),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: SizedBox(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).colorScheme.onPrimary,
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
-  // Show delete confirmation dialog
   void _showDeleteConfirmation(BuildContext context, String listName) {
     showDialog(
       context: context,
@@ -480,33 +535,52 @@ Widget _buildCurrencyOption(BuildContext context, String currency) {
         backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           'Delete List',
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         content: Text(
-          'Are you sure you want to delete "$listName"?',
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          'Are you sure you want to delete "${_displayNameCache[listName] ?? listName}"?',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
               'Cancel',
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ),
           TextButton(
             onPressed: () {
               widget.onDeleteList(listName);
-              Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context);  // Close dialog
+              Navigator.pop(context);  // Close drawer
             },
-            child: const Text(
+            child: Text(
               'Delete',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 24,
       ),
     );
+  }
+
+  // Helper method to check if a list is shared
+  bool _isListShared(String listName) {
+    return _sharedUsersCache[listName]?.isNotEmpty ?? false;
   }
 }
