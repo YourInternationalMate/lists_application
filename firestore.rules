@@ -1,34 +1,59 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Helper functions
     function isAuthenticated() {
       return request.auth != null;
     }
+    
+    function isListMember(userId) {
+      return request.auth.uid == userId || 
+             (resource != null && 
+              resource.data.sharedWith != null && 
+              request.auth.uid in resource.data.sharedWith);
+    }
 
+    function isListOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // User profile rules
     match /users/{userId} {
       allow read, write: if isAuthenticated();
     }
 
+    // User settings rules
     match /userSettings/{userId} {
       allow read, write: if isAuthenticated();
     }
 
+    // List rules - Erlaubt Zugriff auf den Listen-Root für beide Parteien
     match /lists/{userId} {
-      allow read, write: if isAuthenticated();
+      allow read: if isAuthenticated();
+      // Wichtig: Allow write auf dieser Ebene für beide Parteien
+      allow write: if isAuthenticated();
       
+      // Rules for user's own lists
       match /userLists/{listId} {
-        allow read, write: if isAuthenticated();
+        allow read, create, update, delete: if isAuthenticated() &&
+          (isListOwner(userId) || 
+          (resource != null && resource.data.sharedWith != null && request.auth.uid in resource.data.sharedWith));
       }
       
+      // Rules for shared lists
       match /sharedLists/{sharedListId} {
-        allow read, write: if isAuthenticated();
+        allow read, create, update, delete: if isAuthenticated() &&
+          (isListOwner(userId) || 
+          (resource != null && resource.data.sharedWith != null && request.auth.uid in resource.data.sharedWith));
       }
     }
 
+    // Rate limiting rules
     match /rateLimit/{userId} {
       allow read, write: if isAuthenticated();
     }
 
+    // List invite rules
     match /listInvites/{inviteId} {
       allow read, write: if isAuthenticated();
     }

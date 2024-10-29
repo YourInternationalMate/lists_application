@@ -57,7 +57,7 @@ url_launcher_windows=/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-
 # .flutter-plugins-dependencies
 
 ```
-{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_android-2.2.12/","native_build":true,"dependencies":[]},{"name":"shared_preferences_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_android-2.3.3/","native_build":true,"dependencies":[]},{"name":"url_launcher_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.13/","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_macos","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.1/","native_build":true,"dependencies":[]}],"linux":[{"name":"path_provider_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/","native_build":false,"dependencies":[]},{"name":"shared_preferences_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/","native_build":false,"dependencies":["path_provider_linux"]},{"name":"url_launcher_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.0/","native_build":true,"dependencies":[]}],"windows":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/","native_build":false,"dependencies":[]},{"name":"shared_preferences_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1/","native_build":false,"dependencies":["path_provider_windows"]},{"name":"url_launcher_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.2/","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.2/","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/","dependencies":[]},{"name":"shared_preferences_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.2/","dependencies":[]},{"name":"url_launcher_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"path_provider","dependencies":["path_provider_android","path_provider_foundation","path_provider_linux","path_provider_windows"]},{"name":"path_provider_android","dependencies":[]},{"name":"path_provider_foundation","dependencies":[]},{"name":"path_provider_linux","dependencies":[]},{"name":"path_provider_windows","dependencies":[]},{"name":"shared_preferences","dependencies":["shared_preferences_android","shared_preferences_foundation","shared_preferences_linux","shared_preferences_web","shared_preferences_windows"]},{"name":"shared_preferences_android","dependencies":[]},{"name":"shared_preferences_foundation","dependencies":[]},{"name":"shared_preferences_linux","dependencies":["path_provider_linux"]},{"name":"shared_preferences_web","dependencies":[]},{"name":"shared_preferences_windows","dependencies":["path_provider_windows"]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2024-10-28 18:35:57.594703","version":"3.24.3","swift_package_manager_enabled":false}
+{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_android-2.2.12/","native_build":true,"dependencies":[]},{"name":"shared_preferences_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_android-2.3.3/","native_build":true,"dependencies":[]},{"name":"url_launcher_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.13/","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_macos","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.1/","native_build":true,"dependencies":[]}],"linux":[{"name":"path_provider_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/","native_build":false,"dependencies":[]},{"name":"shared_preferences_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/","native_build":false,"dependencies":["path_provider_linux"]},{"name":"url_launcher_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.0/","native_build":true,"dependencies":[]}],"windows":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/","native_build":false,"dependencies":[]},{"name":"shared_preferences_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1/","native_build":false,"dependencies":["path_provider_windows"]},{"name":"url_launcher_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.2/","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.2/","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/","dependencies":[]},{"name":"shared_preferences_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.2/","dependencies":[]},{"name":"url_launcher_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"path_provider","dependencies":["path_provider_android","path_provider_foundation","path_provider_linux","path_provider_windows"]},{"name":"path_provider_android","dependencies":[]},{"name":"path_provider_foundation","dependencies":[]},{"name":"path_provider_linux","dependencies":[]},{"name":"path_provider_windows","dependencies":[]},{"name":"shared_preferences","dependencies":["shared_preferences_android","shared_preferences_foundation","shared_preferences_linux","shared_preferences_web","shared_preferences_windows"]},{"name":"shared_preferences_android","dependencies":[]},{"name":"shared_preferences_foundation","dependencies":[]},{"name":"shared_preferences_linux","dependencies":["path_provider_linux"]},{"name":"shared_preferences_web","dependencies":[]},{"name":"shared_preferences_windows","dependencies":["path_provider_windows"]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2024-10-29 09:17:11.497628","version":"3.24.3","swift_package_manager_enabled":false}
 ```
 
 # .gitignore
@@ -234,118 +234,36 @@ include: package:flutter_lints/flutter.yaml
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper functions 
     function isAuthenticated() {
       return request.auth != null;
     }
-    
-    function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
-    }
-    
-    function isListOwner(listData) {
-      return isAuthenticated() && request.auth.uid == listData.owner;
-    }
-    
-    function isSharedWithUser(listData) {
-      return isAuthenticated() && 
-        (listData.sharedWith is list) && 
-        (request.auth.uid in listData.sharedWith);
-    }
 
-    function hasSharedAccess(listData) {
-      return isAuthenticated() && 
-        (listData.sharedWith is list) && 
-        (request.auth.uid in listData.sharedWith);
-    }
-    
-    // Allow reading user documents for authentication
     match /users/{userId} {
-      allow create: if isAuthenticated() && request.auth.uid == userId;
-      allow read: if isAuthenticated();
-      allow update: if isOwner(userId);
+      allow read, write: if isAuthenticated();
     }
 
-    // Allow access to user settings
     match /userSettings/{userId} {
-      allow read, write: if isOwner(userId);
+      allow read, write: if isAuthenticated();
     }
 
-    // Rate limiting collection
-    match /rateLimit/{userId} {
-      allow read, write: if isOwner(userId);
-    }
-
-    // Main lists collection structure
     match /lists/{userId} {
-      // Allow access to the lists collection
-      allow read: if isAuthenticated();
-      allow write: if isOwner(userId);
+      allow read, write: if isAuthenticated();
       
-      // User's own lists subcollection
       match /userLists/{listId} {
-        // Full access for list owner
-        allow read: if isOwner(userId) || hasSharedAccess(resource.data);
-        allow create: if isOwner(userId);
-        allow delete: if isOwner(userId);
-        
-        // Write access for shared users with restrictions
-        allow update: if isOwner(userId) || 
-          (hasSharedAccess(resource.data) && 
-           !request.resource.data.diff(resource.data).affectedKeys()
-             .hasAny(['owner', 'sharedWith', 'sharedWithEmails']));
+        allow read, write: if isAuthenticated();
       }
       
-      // Shared lists subcollection
       match /sharedLists/{sharedListId} {
-        // Allow read and delete access for all authenticated users
-        allow read, delete: if isAuthenticated();
-        
-        // Allow initial creation by list owner
-        allow create: if isAuthenticated() &&
-          exists(/databases/$(database)/documents/lists/$(request.resource.data.ownerId)/userLists/$(request.resource.data.originalListId)) &&
-          get(/databases/$(database)/documents/lists/$(request.resource.data.ownerId)/userLists/$(request.resource.data.originalListId)).data.owner == request.auth.uid;
-        
-        // Allow updates by owner and shared users
-        allow update: if isAuthenticated() &&
-          (request.auth.uid == resource.data.ownerId || 
-           request.auth.uid == userId || 
-           (resource.data.sharedWith is list && request.auth.uid in resource.data.sharedWith)) &&
-          !request.resource.data.diff(resource.data).affectedKeys()
-            .hasAny(['owner', 'ownerId', 'originalListId', 'sharedWith']);
-      }
-      
-      // Share activity logs
-      match /shareActivity/{activityId} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if isAuthenticated();
       }
     }
 
-    // Items collection (if separate from lists)
-    match /items/{itemId} {
-      allow read: if isAuthenticated() &&
-        (isListOwner(get(resource.data.listRef)) || 
-         hasSharedAccess(get(resource.data.listRef)));
-      allow write: if isAuthenticated() && 
-        isListOwner(get(resource.data.listRef));
+    match /rateLimit/{userId} {
+      allow read, write: if isAuthenticated();
     }
 
-    // User profiles collection
-    match /userProfiles/{userId} {
-      allow read: if isAuthenticated();
-      allow write: if isOwner(userId);
-    }
-
-    // Shared list invites collection
     match /listInvites/{inviteId} {
-      allow read: if isAuthenticated() && 
-        (request.auth.uid == resource.data.fromUserId || 
-         request.auth.uid == resource.data.toUserId);
-      allow create: if isAuthenticated() && 
-        request.auth.uid == request.resource.data.fromUserId;
-      allow update, delete: if isAuthenticated() && 
-        (request.auth.uid == resource.data.fromUserId || 
-         request.auth.uid == resource.data.toUserId);
+      allow read, write: if isAuthenticated();
     }
   }
 }
@@ -711,7 +629,9 @@ class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final SharedPreferences _prefs;
-  
+
+  bool _isInitialized = false;
+
   // Collection references
   late CollectionReference _listsCollection;
   late CollectionReference _userSettingsCollection;
@@ -739,7 +659,7 @@ class FirebaseService {
   // Batch load list names with caching
   Future<Map<String, String>> batchLoadListNames(List<String> listIds) async {
     if (listIds.isEmpty) return {};
-    
+
     final currentTime = DateTime.now().millisecondsSinceEpoch;
     final lastUpdate = _prefs.getInt(_lastCacheUpdateKey) ?? 0;
     final Map<String, String> results = {};
@@ -748,7 +668,8 @@ class FirebaseService {
     // Check cache first
     for (String id in listIds) {
       final cachedName = _prefs.getString('$_namesCachePrefix$id');
-      if (cachedName != null && (currentTime - lastUpdate) < _cacheValidityDuration) {
+      if (cachedName != null &&
+          (currentTime - lastUpdate) < _cacheValidityDuration) {
         results[id] = cachedName;
       } else {
         idsToFetch.add(id);
@@ -759,7 +680,7 @@ class FirebaseService {
 
     try {
       final Map<String, Future<DocumentSnapshot>> futures = {};
-      
+
       for (String id in idsToFetch) {
         if (id.contains('_')) {
           futures[id] = _firestore
@@ -780,7 +701,7 @@ class FirebaseService {
 
       final responses = await Future.wait(futures.values);
       var index = 0;
-      
+
       for (var id in futures.keys) {
         final doc = responses[index++];
         if (doc.exists) {
@@ -865,7 +786,8 @@ class FirebaseService {
     }
   }
 
-  Future<void> updateList(String listName, List<Map<String, dynamic>> items) async {
+  Future<void> updateList(
+      String listName, List<Map<String, dynamic>> items) async {
     if (currentUserId == null) return;
 
     await _listsCollection
@@ -902,7 +824,8 @@ class FirebaseService {
         final doc = await listRef.get();
 
         if (doc.exists) {
-          final sharedWithIds = List<String>.from(doc.data()?['sharedWith'] ?? []);
+          final sharedWithIds =
+              List<String>.from(doc.data()?['sharedWith'] ?? []);
 
           for (final userId in sharedWithIds) {
             final sharedRef = _firestore
@@ -937,15 +860,17 @@ class FirebaseService {
   }
 
   Future<Map<String, dynamic>> loadUserSettings() async {
-    if (currentUserId == null) return {'currency': '€'};
-
-    final docSnapshot = await _userSettingsCollection.doc(currentUserId).get();
-
-    if (!docSnapshot.exists) {
+    if (!_isInitialized) return {};
+    try {
+      final docSnapshot = await _userSettingsCollection.doc(currentUserId).get();
+      if (docSnapshot.exists) {
+        return docSnapshot.data() as Map<String, dynamic>;
+      }
+      return {'currency': '€'};
+    } catch (e) {
+      print('Error loading user settings: $e');
       return {'currency': '€'};
     }
-
-    return docSnapshot.data() as Map<String, dynamic>;
   }
 
   // Sharing Operations
@@ -988,14 +913,16 @@ class FirebaseService {
       final sharedListId = '${currentUserId}_$listId';
 
       // Update original list
-      batch.update(_listsCollection
-          .doc(currentUserId)
-          .collection('userLists')
-          .doc(listId), {
-        'sharedWith': FieldValue.arrayUnion([targetUserId]),
-        'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
-        'lastModified': FieldValue.serverTimestamp(),
-      });
+      batch.update(
+          _listsCollection
+              .doc(currentUserId)
+              .collection('userLists')
+              .doc(listId),
+          {
+            'sharedWith': FieldValue.arrayUnion([targetUserId]),
+            'sharedWithEmails': FieldValue.arrayUnion([targetEmail]),
+            'lastModified': FieldValue.serverTimestamp(),
+          });
 
       // Create shared list
       batch.set(
@@ -1015,7 +942,6 @@ class FirebaseService {
           });
 
       await batch.commit();
-
     } catch (e) {
       print('Error sharing list: $e');
       throw Exception('Failed to share list: ${e.toString()}');
@@ -1026,16 +952,11 @@ class FirebaseService {
     if (currentUserId == null) return false;
 
     try {
-      final rateLimitDoc = await _firestore
-          .collection('rateLimit')
-          .doc(currentUserId)
-          .get();
+      final rateLimitDoc =
+          await _firestore.collection('rateLimit').doc(currentUserId).get();
 
       if (!rateLimitDoc.exists) {
-        await _firestore
-            .collection('rateLimit')
-            .doc(currentUserId)
-            .set({
+        await _firestore.collection('rateLimit').doc(currentUserId).set({
           'shareCount': 1,
           'timestamp': FieldValue.serverTimestamp(),
         });
@@ -1047,10 +968,7 @@ class FirebaseService {
       final count = data['shareCount'] as int;
 
       if (DateTime.now().difference(timestamp) > const Duration(hours: 24)) {
-        await _firestore
-            .collection('rateLimit')
-            .doc(currentUserId)
-            .set({
+        await _firestore.collection('rateLimit').doc(currentUserId).set({
           'shareCount': 1,
           'timestamp': FieldValue.serverTimestamp(),
         });
@@ -1059,10 +977,7 @@ class FirebaseService {
 
       if (count >= 50) return false;
 
-      await _firestore
-          .collection('rateLimit')
-          .doc(currentUserId)
-          .update({
+      await _firestore.collection('rateLimit').doc(currentUserId).update({
         'shareCount': FieldValue.increment(1),
       });
 
@@ -1087,13 +1002,13 @@ class FirebaseService {
             .doc(listName)
             .snapshots()
             .handleError((error) {
-          print('Error in shared list stream: $error');
-          return const [];
-        }).map((snapshot) {
-          if (!snapshot.exists) return [];
-          return List<Map<String, dynamic>>.from(
-              snapshot.data()?['items'] ?? []);
-        });
+              print('Error in shared list stream: $error');
+              return [];
+            })
+            .map((snapshot) {
+              if (!snapshot.exists) return [];
+              return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
+            });
       }
 
       return _firestore
@@ -1103,12 +1018,13 @@ class FirebaseService {
           .doc(listName)
           .snapshots()
           .handleError((error) {
-        print('Error in list stream: $error');
-        return const [];
-      }).map((snapshot) {
-        if (!snapshot.exists) return [];
-        return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
-      });
+            print('Error in list stream: $error');
+            return [];
+          })
+          .map((snapshot) {
+            if (!snapshot.exists) return [];
+            return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
+          });
     } catch (e) {
       print('Error setting up list stream: $e');
       return Stream.value([]);
@@ -1161,45 +1077,44 @@ class FirebaseService {
     return numericPrice;
   }
 
-  Future<void> updateSharedList(
-      String ownerId, String listName, List<Map<String, dynamic>> items) async {
+  Future<void> updateSharedList(String ownerId, String listName, List<Map<String, dynamic>> items) async {
     try {
-      final batch = _firestore.batch();
-      
-      // Original List Reference
-      final originalListRef = _firestore
+      // Einzelne Updates statt Batch
+      // Update original list
+      await _firestore
           .collection('lists')
           .doc(ownerId)
           .collection('userLists')
-          .doc(listName);
-
-      // Update original list
-      batch.update(originalListRef, {
+          .doc(listName)
+          .update({
         'items': items,
         'lastModified': FieldValue.serverTimestamp(),
       });
 
-      // Get all users this list is shared with
-      final originalListDoc = await originalListRef.get();
-      if (!originalListDoc.exists) throw Exception('Original list not found');
-      
-      final sharedWithUsers = List<String>.from(originalListDoc.data()?['sharedWith'] ?? []);
+      // Get shared users
+      final originalListDoc = await _firestore
+          .collection('lists')
+          .doc(ownerId)
+          .collection('userLists')
+          .doc(listName)
+          .get();
 
-      // Update all shared copies
-      for (final sharedUserId in sharedWithUsers) {
-        final sharedListRef = _firestore
-            .collection('lists')
-            .doc(sharedUserId)
-            .collection('sharedLists')
-            .doc('${ownerId}_$listName');
-
-        batch.update(sharedListRef, {
-          'items': items,
-          'lastModified': FieldValue.serverTimestamp(),
-        });
+      if (originalListDoc.exists) {
+        final sharedWithUsers = List<String>.from(originalListDoc.data()?['sharedWith'] ?? []);
+        
+        // Update shared copies sequentially
+        for (final sharedUserId in sharedWithUsers) {
+          await _firestore
+              .collection('lists')
+              .doc(sharedUserId)
+              .collection('sharedLists')
+              .doc('${ownerId}_$listName')
+              .update({
+            'items': items,
+            'lastModified': FieldValue.serverTimestamp(),
+          });
+        }
       }
-
-      await batch.commit();
     } catch (e) {
       print('Error updating shared list: $e');
       throw Exception('Failed to update shared list');
@@ -1253,6 +1168,7 @@ class FirebaseService {
     await clearNameCache();
   }
 }
+
 ```
 
 # lib/firebase_options.dart
@@ -1728,6 +1644,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String currentListName = 'Default List';
   List<String> listNames = [];
   bool _isLoading = true;
+  bool _mounted = true;
   
   // Controllers
   final _nameController = TextEditingController();
@@ -1757,11 +1674,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<void> _loadInitialData() async {
+    if (!mounted) return;
     try {
       setState(() => _isLoading = true);
       
-      // Initialize Firebase Auth listener
+      await db.initialize();
+      
+      // Listen auf Auth-Änderungen
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (!_mounted) return;  // Early return wenn nicht mehr mounted
         if (user == null && mounted) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const AuthScreen()),
@@ -1769,26 +1690,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
       });
 
-      // Load initial data
-      await initializeData();
+      // Lade initiale Daten
+      if (_mounted) {  // Prüfe mounted status
+        await initializeData();
+      }
       
-      // Set up real-time updates
-      db.listUpdates.listen(
-        (updatedList) {
-          if (mounted) {
-            setState(() {
-              db.currentShoppingList = updatedList;
-            });
-          }
-        },
-        onError: (error) {
-          print('Error in list updates: $error');
-        },
-      );
+      // Setup real-time updates
+      if (_mounted) {  // Prüfe mounted status
+        db.listUpdates.listen(
+          (updatedList) {
+            if (_mounted && mounted) {  // Doppelte Prüfung
+              setState(() {
+                db.currentShoppingList = updatedList;
+              });
+            }
+          },
+          onError: (error) {
+            print('Error in list updates: $error');
+          },
+        );
+      }
 
     } catch (e) {
       print('Error in initialization: $e');
-      if (mounted) {
+      if (_mounted && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error loading data: $e'),
@@ -1797,7 +1722,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         );
       }
     } finally {
-      if (mounted) {
+      if (_mounted && mounted) {
         setState(() => _isLoading = false);
       }
     }
@@ -1805,6 +1730,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    _mounted = false;
     db.dispose();
     _fadeController.dispose();
     _slideController.dispose();
