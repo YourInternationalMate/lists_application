@@ -1,59 +1,61 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper functions
+    
+    // Hilfsfunktion: Überprüfen, ob Benutzer authentifiziert ist
     function isAuthenticated() {
       return request.auth != null;
     }
     
-    function isListMember(userId) {
-      return request.auth.uid == userId || 
-             (resource != null && 
-              resource.data.sharedWith != null && 
-              request.auth.uid in resource.data.sharedWith);
-    }
-
+    // Überprüfen, ob der Benutzer der Owner der Liste ist
     function isListOwner(userId) {
       return request.auth.uid == userId;
     }
+    
+    // Überprüfen, ob der Benutzer Mitglied der Liste ist (Owner oder geteilter Benutzer)
+    function isListMember(userId) {
+      return isListOwner(userId) || 
+             (resource != null && resource.data.sharedWith != null && request.auth.uid in resource.data.sharedWith);
+    }
 
-    // User profile rules
+    // Regeln für Benutzerprofile
     match /users/{userId} {
       allow read, write: if isAuthenticated();
     }
 
-    // User settings rules
+    // Regeln für Benutzereinstellungen
     match /userSettings/{userId} {
       allow read, write: if isAuthenticated();
     }
 
-    // List rules - Erlaubt Zugriff auf den Listen-Root für beide Parteien
+    // Regeln für Listen
     match /lists/{userId} {
-      allow read: if isAuthenticated();
-      // Wichtig: Allow write auf dieser Ebene für beide Parteien
-      allow write: if isAuthenticated();
       
-      // Rules for user's own lists
+      // Zugriff auf die Root-Liste erlauben, aber beschränken auf authentifizierte Benutzer
+      allow read, write: if isAuthenticated();
+      
+      // Regeln für die eigenen Listen des Benutzers
       match /userLists/{listId} {
-        allow read, create, update, delete: if isAuthenticated() &&
-          (isListOwner(userId) || 
-          (resource != null && resource.data.sharedWith != null && request.auth.uid in resource.data.sharedWith));
+        // Vollzugriff für den Owner, Zugriff für geteilte Benutzer nur auf vorhandene Listen
+        allow read, create, update, delete: if isAuthenticated() && isListMember(userId);
       }
       
-      // Rules for shared lists
+      // Regeln für geteilte Listen
       match /sharedLists/{sharedListId} {
-        allow read, create, update, delete: if isAuthenticated() &&
-          (isListOwner(userId) || 
-          (resource != null && resource.data.sharedWith != null && request.auth.uid in resource.data.sharedWith));
+        // Erlaubt das Erstellen, auch wenn der Benutzer noch nicht in `sharedWith` ist (Initiales Teilen)
+        allow create: if isAuthenticated();
+        
+        // Zugriff auf Lesen, Aktualisieren und Löschen für den Owner und geteilte Benutzer
+        allow read, update, delete: if isAuthenticated() && isListMember(userId);
       }
     }
 
-    // Rate limiting rules
+    // Regeln für die Begrenzung von Teilen
     match /rateLimit/{userId} {
       allow read, write: if isAuthenticated();
     }
 
-    // List invite rules
+    // Regeln für Einladungen zu Listen
     match /listInvites/{inviteId} {
       allow read, write: if isAuthenticated();
     }

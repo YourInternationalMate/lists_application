@@ -57,7 +57,7 @@ url_launcher_windows=/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-
 # .flutter-plugins-dependencies
 
 ```
-{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_android-2.2.12/","native_build":true,"dependencies":[]},{"name":"shared_preferences_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_android-2.3.3/","native_build":true,"dependencies":[]},{"name":"url_launcher_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.13/","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_macos","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.1/","native_build":true,"dependencies":[]}],"linux":[{"name":"path_provider_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/","native_build":false,"dependencies":[]},{"name":"shared_preferences_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/","native_build":false,"dependencies":["path_provider_linux"]},{"name":"url_launcher_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.0/","native_build":true,"dependencies":[]}],"windows":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/","native_build":false,"dependencies":[]},{"name":"shared_preferences_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1/","native_build":false,"dependencies":["path_provider_windows"]},{"name":"url_launcher_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.2/","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.2/","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/","dependencies":[]},{"name":"shared_preferences_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.2/","dependencies":[]},{"name":"url_launcher_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"path_provider","dependencies":["path_provider_android","path_provider_foundation","path_provider_linux","path_provider_windows"]},{"name":"path_provider_android","dependencies":[]},{"name":"path_provider_foundation","dependencies":[]},{"name":"path_provider_linux","dependencies":[]},{"name":"path_provider_windows","dependencies":[]},{"name":"shared_preferences","dependencies":["shared_preferences_android","shared_preferences_foundation","shared_preferences_linux","shared_preferences_web","shared_preferences_windows"]},{"name":"shared_preferences_android","dependencies":[]},{"name":"shared_preferences_foundation","dependencies":[]},{"name":"shared_preferences_linux","dependencies":["path_provider_linux"]},{"name":"shared_preferences_web","dependencies":[]},{"name":"shared_preferences_windows","dependencies":["path_provider_windows"]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2024-10-29 09:17:11.497628","version":"3.24.3","swift_package_manager_enabled":false}
+{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_android-2.2.12/","native_build":true,"dependencies":[]},{"name":"shared_preferences_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_android-2.3.3/","native_build":true,"dependencies":[]},{"name":"url_launcher_android","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.13/","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"shared_preferences_foundation","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/","shared_darwin_source":true,"native_build":true,"dependencies":[]},{"name":"url_launcher_macos","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.1/","native_build":true,"dependencies":[]}],"linux":[{"name":"path_provider_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/","native_build":false,"dependencies":[]},{"name":"shared_preferences_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.4.1/","native_build":false,"dependencies":["path_provider_linux"]},{"name":"url_launcher_linux","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.0/","native_build":true,"dependencies":[]}],"windows":[{"name":"cloud_firestore","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth-5.3.1/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/","native_build":true,"dependencies":[]},{"name":"path_provider_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/","native_build":false,"dependencies":[]},{"name":"shared_preferences_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.4.1/","native_build":false,"dependencies":["path_provider_windows"]},{"name":"url_launcher_windows","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.2/","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_auth_web-5.13.2/","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1/","dependencies":[]},{"name":"shared_preferences_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/shared_preferences_web-2.4.2/","dependencies":[]},{"name":"url_launcher_web","path":"/Users/mika/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"path_provider","dependencies":["path_provider_android","path_provider_foundation","path_provider_linux","path_provider_windows"]},{"name":"path_provider_android","dependencies":[]},{"name":"path_provider_foundation","dependencies":[]},{"name":"path_provider_linux","dependencies":[]},{"name":"path_provider_windows","dependencies":[]},{"name":"shared_preferences","dependencies":["shared_preferences_android","shared_preferences_foundation","shared_preferences_linux","shared_preferences_web","shared_preferences_windows"]},{"name":"shared_preferences_android","dependencies":[]},{"name":"shared_preferences_foundation","dependencies":[]},{"name":"shared_preferences_linux","dependencies":["path_provider_linux"]},{"name":"shared_preferences_web","dependencies":[]},{"name":"shared_preferences_windows","dependencies":["path_provider_windows"]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2024-10-30 19:49:52.262075","version":"3.24.3","swift_package_manager_enabled":false}
 ```
 
 # .gitignore
@@ -234,34 +234,61 @@ include: package:flutter_lints/flutter.yaml
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Helper functions
     function isAuthenticated() {
       return request.auth != null;
     }
+    
+    function isListMember(userId) {
+      return request.auth.uid == userId || 
+             (resource != null && 
+              resource.data.sharedWith != null && 
+              request.auth.uid in resource.data.sharedWith);
+    }
 
+    function isListOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // User profile rules
     match /users/{userId} {
       allow read, write: if isAuthenticated();
     }
 
+    // User settings rules
     match /userSettings/{userId} {
       allow read, write: if isAuthenticated();
     }
 
+    // List rules - Erlaubt Zugriff auf den Listen-Root für beide Parteien
     match /lists/{userId} {
-      allow read, write: if isAuthenticated();
+      allow read: if isAuthenticated();
+      // Wichtig: Allow write auf dieser Ebene für beide Parteien
+      allow write: if isAuthenticated();
       
+      // Rules for user's own lists
       match /userLists/{listId} {
-        allow read, write: if isAuthenticated();
+        allow read, create, update, delete: if isAuthenticated() &&
+          (isListOwner(userId) || 
+          (resource != null && resource.data.sharedWith != null && request.auth.uid in resource.data.sharedWith));
       }
       
+      // Rules for shared lists
       match /sharedLists/{sharedListId} {
-        allow read, write: if isAuthenticated();
+        // Erlaube das Erstellen, auch wenn der Benutzer noch nicht in sharedWith ist
+        allow create: if isAuthenticated();  
+        allow read, update, delete: if isAuthenticated() &&
+          (isListOwner(userId) || 
+          (resource != null && resource.data.sharedWith != null && request.auth.uid in resource.data.sharedWith));
       }
     }
 
+    // Rate limiting rules
     match /rateLimit/{userId} {
       allow read, write: if isAuthenticated();
     }
 
+    // List invite rules
     match /listInvites/{inviteId} {
       allow read, write: if isAuthenticated();
     }
@@ -274,26 +301,27 @@ service cloud.firestore {
 ```dart
 import 'dart:async';
 import 'package:Lists/data/firebase_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ShoppingDataBase {
   // Private instance of FirebaseService
   late FirebaseService _firebase;
   bool _isInitialized = false;
-  
+
   // Local cache of current data
   List<Map<String, String>> currentShoppingList = [];
   String currentCurrency = '€';
   Map<String, String> _listNameCache = {};
-  
+
   // Stream controllers for real-time updates
-  final _listUpdateController = StreamController<List<Map<String, String>>>.broadcast();
-  Stream<List<Map<String, String>>> get listUpdates => _listUpdateController.stream;
+  final _listUpdateController =
+      StreamController<List<Map<String, String>>>.broadcast();
+  Stream<List<Map<String, String>>> get listUpdates =>
+      _listUpdateController.stream;
 
   // Stream controller for currency updates
   final _currencyController = StreamController<String>.broadcast();
   Stream<String> get currencyUpdates => _currencyController.stream;
-  
+
   // Categories (could be moved to Firestore later)
   List<String> categories = [
     'All',
@@ -323,7 +351,7 @@ class ShoppingDataBase {
       currentCurrency = settings['currency'] ?? '€';
     } catch (e) {
       print('Error loading currency: $e');
-      currentCurrency = '€';  // Fallback to default
+      currentCurrency = '€'; // Fallback to default
     }
   }
 
@@ -334,7 +362,7 @@ class ShoppingDataBase {
       await _firebase.saveUserSettings({'currency': currency});
       currentCurrency = currency;
       _currencyController.add(currency);
-      
+
       if (!_listUpdateController.isClosed) {
         _listUpdateController.add(currentShoppingList);
       }
@@ -362,13 +390,12 @@ class ShoppingDataBase {
     await _ensureInitialized();
     try {
       await loadCurrency();
-      
+
       final items = await _firebase.loadListData(listName);
       currentShoppingList = _convertToStringMap(items);
-      
+
       await _listSubscription?.cancel();
       _subscribeToListUpdates(listName);
-      
     } catch (e) {
       print('Error loading data: $e');
       currentShoppingList = [];
@@ -379,19 +406,16 @@ class ShoppingDataBase {
   // Subscribe to real-time updates for current list
   void _subscribeToListUpdates(String listName) {
     _listSubscription?.cancel();
-    
+
     try {
-      _listSubscription = _firebase.getListStream(listName).listen(
-        (items) {
-          if (!_listUpdateController.isClosed) {
-            currentShoppingList = _convertToStringMap(items);
-            _listUpdateController.add(currentShoppingList);
-          }
-        },
-        onError: (error) {
-          print('Error in list subscription: $error');
+      _listSubscription = _firebase.getListStream(listName).listen((items) {
+        if (!_listUpdateController.isClosed) {
+          currentShoppingList = _convertToStringMap(items);
+          _listUpdateController.add(currentShoppingList);
         }
-      );
+      }, onError: (error) {
+        print('Error in list subscription: $error');
+      });
     } catch (e) {
       print('Error setting up subscription: $e');
     }
@@ -401,9 +425,8 @@ class ShoppingDataBase {
   List<Map<String, String>> _convertToStringMap(List<dynamic> items) {
     return items.map((item) {
       if (item is Map) {
-        return Map<String, String>.from(
-          item.map((key, value) => MapEntry(key.toString(), value.toString()))
-        );
+        return Map<String, String>.from(item
+            .map((key, value) => MapEntry(key.toString(), value.toString())));
       }
       return <String, String>{};
     }).toList();
@@ -413,18 +436,17 @@ class ShoppingDataBase {
     await _ensureInitialized();
     try {
       if (listId.contains('_')) {
-        final originalListInfo = await _firebase.getOriginalListInfo(listId);
-        if (originalListInfo != null) {
-          await _firebase.updateSharedList(
-            originalListInfo['ownerId']!,
-            originalListInfo['originalListName']!,
-            currentShoppingList
-          );
-          return;
-        }
+        // Wenn es eine geteilte Liste ist
+        final parts = listId.split('_');
+        final originalOwnerId = parts[0];
+        final originalListName = parts[1];
+
+        await _firebase.updateSharedList(
+            originalOwnerId, originalListName, currentShoppingList);
+      } else {
+        // Direkte Liste des Users
+        await _firebase.updateList(listId, currentShoppingList);
       }
-      
-      await _firebase.updateList(listId, currentShoppingList);
     } catch (e) {
       print('Error updating database: $e');
       throw Exception('Failed to update list');
@@ -466,12 +488,12 @@ class ShoppingDataBase {
     await _ensureInitialized();
     try {
       final listIds = await _firebase.getAllListNames();
-      
+
       // Clear and update cache
       _listNameCache.clear();
       final names = await _firebase.batchLoadListNames(listIds);
       _listNameCache.addAll(names);
-      
+
       return listIds;
     } catch (e) {
       print('Error getting list names: $e');
@@ -496,23 +518,9 @@ class ShoppingDataBase {
       if (!item['price']!.contains('€') && !item['price']!.contains('\$')) {
         item['price'] = '${item['price']}$currentCurrency';
       }
-      
-      if (listId.contains('_')) {
-        final parts = listId.split('_');
-        final originalOwnerId = parts[0];
-        final originalListName = parts[1];
 
-        currentShoppingList.add(item);
-        
-        await _firebase.updateSharedList(
-          originalOwnerId,
-          originalListName,
-          List<Map<String, dynamic>>.from(currentShoppingList)
-        );
-      } else {
-        currentShoppingList.add(item);
-        await updateDataBase(listId);
-      }
+      currentShoppingList.add(item);
+      await updateDataBase(listId);
     } catch (e) {
       print('Error adding item: $e');
       throw Exception('Failed to add item');
@@ -520,7 +528,8 @@ class ShoppingDataBase {
   }
 
   // Update existing item
-  Future<void> updateItem(String listName, int index, Map<String, String> newItem) async {
+  Future<void> updateItem(
+      String listName, int index, Map<String, String> newItem) async {
     await _ensureInitialized();
     try {
       if (index >= 0 && index < currentShoppingList.length) {
@@ -579,6 +588,7 @@ class ShoppingDataBase {
     _currencyController.close();
   }
 }
+
 ```
 
 # lib/data/firebase_service.dart
@@ -790,14 +800,48 @@ class FirebaseService {
       String listName, List<Map<String, dynamic>> items) async {
     if (currentUserId == null) return;
 
-    await _listsCollection
-        .doc(currentUserId)
-        .collection('userLists')
-        .doc(listName)
-        .update({
-      'items': items,
-      'lastModified': FieldValue.serverTimestamp(),
-    });
+    try {
+      // Update original list
+      await _firestore
+          .collection('lists')
+          .doc(currentUserId)
+          .collection('userLists')
+          .doc(listName)
+          .update({
+        'items': items,
+        'lastModified': FieldValue.serverTimestamp(),
+      });
+
+      // Get list info to find shared users
+      final listDoc = await _firestore
+          .collection('lists')
+          .doc(currentUserId)
+          .collection('userLists')
+          .doc(listName)
+          .get();
+
+      // If list exists and has shared users, update their copies
+      if (listDoc.exists) {
+        final sharedWithUsers =
+            List<String>.from(listDoc.data()?['sharedWith'] ?? []);
+
+        // Update all shared copies
+        for (final sharedUserId in sharedWithUsers) {
+          await _firestore
+              .collection('lists')
+              .doc(sharedUserId)
+              .collection('sharedLists')
+              .doc('${currentUserId}_$listName')
+              .update({
+            'items': items,
+            'lastModified': FieldValue.serverTimestamp(),
+          });
+        }
+      }
+    } catch (e) {
+      print('Error updating list: $e');
+      throw Exception('Failed to update list');
+    }
   }
 
   Future<void> deleteList(String listName) async {
@@ -862,7 +906,8 @@ class FirebaseService {
   Future<Map<String, dynamic>> loadUserSettings() async {
     if (!_isInitialized) return {};
     try {
-      final docSnapshot = await _userSettingsCollection.doc(currentUserId).get();
+      final docSnapshot =
+          await _userSettingsCollection.doc(currentUserId).get();
       if (docSnapshot.exists) {
         return docSnapshot.data() as Map<String, dynamic>;
       }
@@ -1002,13 +1047,13 @@ class FirebaseService {
             .doc(listName)
             .snapshots()
             .handleError((error) {
-              print('Error in shared list stream: $error');
-              return [];
-            })
-            .map((snapshot) {
-              if (!snapshot.exists) return [];
-              return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
-            });
+          print('Error in shared list stream: $error');
+          return [];
+        }).map((snapshot) {
+          if (!snapshot.exists) return [];
+          return List<Map<String, dynamic>>.from(
+              snapshot.data()?['items'] ?? []);
+        });
       }
 
       return _firestore
@@ -1018,13 +1063,12 @@ class FirebaseService {
           .doc(listName)
           .snapshots()
           .handleError((error) {
-            print('Error in list stream: $error');
-            return [];
-          })
-          .map((snapshot) {
-            if (!snapshot.exists) return [];
-            return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
-          });
+        print('Error in list stream: $error');
+        return [];
+      }).map((snapshot) {
+        if (!snapshot.exists) return [];
+        return List<Map<String, dynamic>>.from(snapshot.data()?['items'] ?? []);
+      });
     } catch (e) {
       print('Error setting up list stream: $e');
       return Stream.value([]);
@@ -1077,9 +1121,17 @@ class FirebaseService {
     return numericPrice;
   }
 
-  Future<void> updateSharedList(String ownerId, String listName, List<Map<String, dynamic>> items) async {
-    try {
-      // Einzelne Updates statt Batch
+  Future<void> updateSharedList(
+    String ownerId, String listName, List<Map<String, dynamic>> items) async {
+  try {
+    // Bestimme, ob der aktuelle User der Owner ist
+    bool isOwner = currentUserId == ownerId;
+
+    if (isOwner) {
+      // Wenn Owner, nutze updateList Methode
+      await updateList(listName, items);
+    } else {
+      // Wenn shared User, update original und shared copies
       // Update original list
       await _firestore
           .collection('lists')
@@ -1091,7 +1143,7 @@ class FirebaseService {
         'lastModified': FieldValue.serverTimestamp(),
       });
 
-      // Get shared users
+      // Get all shared users
       final originalListDoc = await _firestore
           .collection('lists')
           .doc(ownerId)
@@ -1100,9 +1152,10 @@ class FirebaseService {
           .get();
 
       if (originalListDoc.exists) {
-        final sharedWithUsers = List<String>.from(originalListDoc.data()?['sharedWith'] ?? []);
-        
-        // Update shared copies sequentially
+        final sharedWithUsers =
+            List<String>.from(originalListDoc.data()?['sharedWith'] ?? []);
+
+        // Update all shared copies
         for (final sharedUserId in sharedWithUsers) {
           await _firestore
               .collection('lists')
@@ -1115,11 +1168,23 @@ class FirebaseService {
           });
         }
       }
-    } catch (e) {
-      print('Error updating shared list: $e');
-      throw Exception('Failed to update shared list');
+
+      // Update owner's shared copy
+      await _firestore
+          .collection('lists')
+          .doc(currentUserId)
+          .collection('sharedLists')
+          .doc('${ownerId}_$listName')
+          .update({
+        'items': items,
+        'lastModified': FieldValue.serverTimestamp(),
+      });
     }
+  } catch (e) {
+    print('Error updating shared list: $e');
+    throw Exception('Failed to update shared list');
   }
+}
 
   Future<Map<String, String>?> getOriginalListInfo(String sharedListId) async {
     try {
@@ -4857,6 +4922,33 @@ class _ShoppingTileState extends State<ShoppingTile>
 }
 ```
 
+# LICENSE
+
+```
+MIT License
+
+Copyright (c) 2024 Mika Königsmann
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+```
+
 # lists_application.iml
 
 ```iml
@@ -5235,21 +5327,13 @@ packages:
     source: hosted
     version: "2.3.2"
   hive:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: hive
       sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
       url: "https://pub.dev"
     source: hosted
     version: "2.2.3"
-  hive_flutter:
-    dependency: "direct main"
-    description:
-      name: hive_flutter
-      sha256: dca1da446b1d808a51689fb5d0c6c9510c0a2ba01e22805d492c73b68e33eecc
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   hive_generator:
     dependency: "direct dev"
     description:
@@ -5797,8 +5881,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.6
   flutter_slidable: ^3.1.0
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
   path_provider: ^2.0.0
   url_launcher: ^6.3.1
   firebase_core: ^3.6.0
@@ -5821,9 +5903,109 @@ flutter:
 # README.md
 
 ```md
-# lists_application
+# Modern Lists App
 
-A new Flutter project.
+A feature-rich Flutter application for managing lists with real-time synchronization, multi-currency support, and a modern user interface.
+
+![Flutter Version](https://img.shields.io/badge/Flutter-3.5.3-blue.svg)
+![Firebase](https://img.shields.io/badge/Firebase-Enabled-orange.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
+## ✨ Features
+
+- **Multiple Lists**: Create and manage multiple lists
+- **Real-time Sync**: All changes are synchronized in real-time using Firebase
+- **Multi-Currency Support**: Toggle between EUR (€) and USD ($) with automatic conversion
+- **Category Filtering**: Organize items by categories for better overview
+- **Drag & Drop**: Intuitive drag-and-drop reordering of items
+- **Share Lists**: Collaborate by sharing lists with other users
+- **Dark/Light Theme**: Automatic theme switching based on system preferences
+- **Animated UI**: Smooth animations and transitions throughout the app
+- **URL Support**: Add and open product URLs directly from items
+- **Offline Support**: Local caching for offline access
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Flutter (3.5.3 or higher)
+- Dart SDK
+- Firebase account
+- Android Studio / VS Code
+
+### Installation
+
+1. Clone the repository
+\`\`\`bash
+git clone https://github.com/yourusername/shopping-lists-app.git
+\`\`\`
+
+2. Install dependencies
+\`\`\`bash
+flutter pub get
+\`\`\`
+
+3. Configure Firebase
+   - Create a new Firebase project
+   - Add Android & iOS apps in Firebase console
+   - Download and replace the `google-services.json` and `GoogleService-Info.plist`
+   - Enable Email/Password authentication in Firebase console
+   - Set up Cloud Firestore database
+
+4. Run the app
+\`\`\`bash
+flutter run
+\`\`\`
+
+## 🏗️ Architecture
+
+The app follows a clean architecture pattern with:
+
+- **Firebase Service**: Handles all Firebase interactions
+- **Local Database**: Manages local caching and offline support
+- **UI Components**: Reusable widgets with consistent styling
+- **State Management**: Stream-based real-time updates
+- **Animations**: Custom animation controllers for smooth transitions
+
+## 🛠️ Built With
+
+- **Flutter**: UI framework
+- **Firebase**:
+  - Authentication
+  - Cloud Firestore
+  - Real-time Database
+- **Provider**: State management
+- **flutter_slidable**: Sliding actions
+- **url_launcher**: External URL handling
+
+## 📱 Screenshots
+
+Screenshots coming soon
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Your Name
+- GitHub: [@YourInternationalMate](https://github.com/YourInternationalMate)
+
+## 🙏 Acknowledgments
+
+- [Flutter Team](https://flutter.dev)
+- [Firebase](https://firebase.google.com)
+- All contributors who help improve this project
 
 ```
 

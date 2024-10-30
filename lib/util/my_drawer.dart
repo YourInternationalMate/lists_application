@@ -1,5 +1,4 @@
 import 'package:Lists/util/list_tile.dart';
-import 'package:Lists/util/share_list_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +10,6 @@ class MyDrawer extends StatefulWidget {
   final Function(String) onListChange;
   final Function(String) onDeleteList;
   final Function(String) onCurrencyChange;
-  final Function(String) onShareList;
   final String currentCurrency;
   final String currentListName;
 
@@ -22,7 +20,6 @@ class MyDrawer extends StatefulWidget {
     required this.onListChange,
     required this.onDeleteList,
     required this.onCurrencyChange,
-    required this.onShareList,
     required this.currentCurrency,
     required this.currentListName,
   });
@@ -159,32 +156,6 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
       navigator.pop();
     } catch (e) {
       print('Error during logout: $e');
-    }
-  }
-
-  void _showShareDialog(BuildContext context) async {
-    await _loadSharedUsers(widget.currentListName);
-    
-    if (!mounted) return;
-    
-    Navigator.pop(context);
-    
-    showDialog(
-      context: context,
-      builder: (context) => ShareListDialog(
-        listName: _displayNameCache[widget.currentListName] ?? widget.currentListName,
-        onShare: _handleShare,
-        currentlySharedWith: _sharedUsersCache[widget.currentListName],
-      ),
-    );
-  }
-
-  Future<void> _handleShare(String email) async {
-    try {
-      await widget.onShareList(email);
-      await _loadSharedUsers(widget.currentListName);
-    } catch (e) {
-      rethrow;
     }
   }
 
@@ -350,30 +321,6 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
   Widget _buildBottomButtons(BuildContext context) {
     return Column(
       children: [
-        ListTile(
-          leading: Icon(
-            Icons.share,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          title: Text(
-            'Share Current List',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-          ),
-          trailing: _sharedUsersCache[widget.currentListName]?.isNotEmpty == true
-              ? Badge(
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  label: Text(
-                    _sharedUsersCache[widget.currentListName]!.length.toString(),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                    ),
-                  ),
-                )
-              : null,
-          onTap: () => _showShareDialog(context),
-        ),
         ListTile(
           leading: Icon(
             Icons.add,

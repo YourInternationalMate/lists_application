@@ -164,31 +164,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 }
 
-  // Handle list sharing
-  Future<void> _handleShareList(String email) async {
-    try {
-      await db.shareList(currentListName, email);
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('List shared with $email', style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),),
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-          ),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to share list: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-      rethrow;
-    }
-  }
-
   void _initializeControllers() {
     _scrollController = ScrollController();
     _fadeController = AnimationController(
@@ -432,7 +407,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           });
         },
         onCurrencyChange: _handleCurrencyChange,
-        onShareList: _handleShareList,
         currentCurrency: db.currentCurrency,
       ),
       body: SafeArea(

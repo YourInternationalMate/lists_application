@@ -1,25 +1,26 @@
 import 'dart:async';
 import 'package:Lists/data/firebase_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ShoppingDataBase {
   // Private instance of FirebaseService
   late FirebaseService _firebase;
   bool _isInitialized = false;
-  
+
   // Local cache of current data
   List<Map<String, String>> currentShoppingList = [];
   String currentCurrency = '€';
   Map<String, String> _listNameCache = {};
-  
+
   // Stream controllers for real-time updates
-  final _listUpdateController = StreamController<List<Map<String, String>>>.broadcast();
-  Stream<List<Map<String, String>>> get listUpdates => _listUpdateController.stream;
+  final _listUpdateController =
+      StreamController<List<Map<String, String>>>.broadcast();
+  Stream<List<Map<String, String>>> get listUpdates =>
+      _listUpdateController.stream;
 
   // Stream controller for currency updates
   final _currencyController = StreamController<String>.broadcast();
   Stream<String> get currencyUpdates => _currencyController.stream;
-  
+
   // Categories (could be moved to Firestore later)
   List<String> categories = [
     'All',
@@ -49,7 +50,7 @@ class ShoppingDataBase {
       currentCurrency = settings['currency'] ?? '€';
     } catch (e) {
       print('Error loading currency: $e');
-      currentCurrency = '€';  // Fallback to default
+      currentCurrency = '€'; // Fallback to default
     }
   }
 
@@ -60,7 +61,7 @@ class ShoppingDataBase {
       await _firebase.saveUserSettings({'currency': currency});
       currentCurrency = currency;
       _currencyController.add(currency);
-      
+
       if (!_listUpdateController.isClosed) {
         _listUpdateController.add(currentShoppingList);
       }
@@ -88,13 +89,12 @@ class ShoppingDataBase {
     await _ensureInitialized();
     try {
       await loadCurrency();
-      
+
       final items = await _firebase.loadListData(listName);
       currentShoppingList = _convertToStringMap(items);
-      
+
       await _listSubscription?.cancel();
       _subscribeToListUpdates(listName);
-      
     } catch (e) {
       print('Error loading data: $e');
       currentShoppingList = [];
@@ -105,19 +105,16 @@ class ShoppingDataBase {
   // Subscribe to real-time updates for current list
   void _subscribeToListUpdates(String listName) {
     _listSubscription?.cancel();
-    
+
     try {
-      _listSubscription = _firebase.getListStream(listName).listen(
-        (items) {
-          if (!_listUpdateController.isClosed) {
-            currentShoppingList = _convertToStringMap(items);
-            _listUpdateController.add(currentShoppingList);
-          }
-        },
-        onError: (error) {
-          print('Error in list subscription: $error');
+      _listSubscription = _firebase.getListStream(listName).listen((items) {
+        if (!_listUpdateController.isClosed) {
+          currentShoppingList = _convertToStringMap(items);
+          _listUpdateController.add(currentShoppingList);
         }
-      );
+      }, onError: (error) {
+        print('Error in list subscription: $error');
+      });
     } catch (e) {
       print('Error setting up subscription: $e');
     }
@@ -127,9 +124,8 @@ class ShoppingDataBase {
   List<Map<String, String>> _convertToStringMap(List<dynamic> items) {
     return items.map((item) {
       if (item is Map) {
-        return Map<String, String>.from(
-          item.map((key, value) => MapEntry(key.toString(), value.toString()))
-        );
+        return Map<String, String>.from(item
+            .map((key, value) => MapEntry(key.toString(), value.toString())));
       }
       return <String, String>{};
     }).toList();
@@ -138,19 +134,9 @@ class ShoppingDataBase {
   Future<void> updateDataBase(String listId) async {
     await _ensureInitialized();
     try {
-      if (listId.contains('_')) {
-        final originalListInfo = await _firebase.getOriginalListInfo(listId);
-        if (originalListInfo != null) {
-          await _firebase.updateSharedList(
-            originalListInfo['ownerId']!,
-            originalListInfo['originalListName']!,
-            currentShoppingList
-          );
-          return;
-        }
-      }
-      
+      if (!_listUpdateController.isClosed) {
       await _firebase.updateList(listId, currentShoppingList);
+      }
     } catch (e) {
       print('Error updating database: $e');
       throw Exception('Failed to update list');
@@ -192,27 +178,16 @@ class ShoppingDataBase {
     await _ensureInitialized();
     try {
       final listIds = await _firebase.getAllListNames();
-      
+
       // Clear and update cache
       _listNameCache.clear();
       final names = await _firebase.batchLoadListNames(listIds);
       _listNameCache.addAll(names);
-      
+
       return listIds;
     } catch (e) {
       print('Error getting list names: $e');
       return [];
-    }
-  }
-
-  // Share list with another user
-  Future<void> shareList(String listName, String email) async {
-    await _ensureInitialized();
-    try {
-      await _firebase.shareList(listName, email);
-    } catch (e) {
-      print('Error sharing list: $e');
-      throw Exception('Failed to share list');
     }
   }
 
@@ -222,23 +197,9 @@ class ShoppingDataBase {
       if (!item['price']!.contains('€') && !item['price']!.contains('\$')) {
         item['price'] = '${item['price']}$currentCurrency';
       }
-      
-      if (listId.contains('_')) {
-        final parts = listId.split('_');
-        final originalOwnerId = parts[0];
-        final originalListName = parts[1];
 
-        currentShoppingList.add(item);
-        
-        await _firebase.updateSharedList(
-          originalOwnerId,
-          originalListName,
-          List<Map<String, dynamic>>.from(currentShoppingList)
-        );
-      } else {
-        currentShoppingList.add(item);
-        await updateDataBase(listId);
-      }
+      currentShoppingList.add(item);
+      await updateDataBase(listId);
     } catch (e) {
       print('Error adding item: $e');
       throw Exception('Failed to add item');
@@ -246,7 +207,8 @@ class ShoppingDataBase {
   }
 
   // Update existing item
-  Future<void> updateItem(String listName, int index, Map<String, String> newItem) async {
+  Future<void> updateItem(
+      String listName, int index, Map<String, String> newItem) async {
     await _ensureInitialized();
     try {
       if (index >= 0 && index < currentShoppingList.length) {
